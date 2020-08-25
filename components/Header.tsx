@@ -45,7 +45,7 @@ const opaqueOn = ["/"];
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const router = useRouter();
+  const router = { asPath: "/" }; //useRouter();
 
   return (
     <header
