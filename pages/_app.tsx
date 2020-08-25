@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AppProps } from "next/app";
 import "lib/tailwind.css";
 import { useRouter } from "next/router";
@@ -128,13 +128,12 @@ import { useRouter } from "next/router";
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  console.log(router.asPath);
+  console.log(`'${router.asPath}'`);
 
   return (
     <div>
       {router.asPath !== "/" && <div className="p-10 bg-red-500" />}
       <div className="p-10 bg-green-500" />
-      {/* <Component {...pageProps} /> */}
     </div>
   );
 }
