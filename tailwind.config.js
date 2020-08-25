@@ -5,6 +5,7 @@ module.exports = {
   },
   variants: {
     width: ["responsive", "hover", "focus"],
+    minWidth: ["responsive", "hover", "focus"],
   },
   plugins: [require("@tailwindcss/ui")],
   future: {
