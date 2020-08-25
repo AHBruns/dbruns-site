@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AppProps } from "next/app";
 import "lib/tailwind.css";
 import Newsletters from "components/Newsletters";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 
 function App({ Component, pageProps }: AppProps) {
   const [openness, setOpenness] = useState("CLOSED");
@@ -117,7 +117,7 @@ function App({ Component, pageProps }: AppProps) {
         </div>
       )}
       <div className="flex max-w-full">
-        {router.asPath !== "/" && <div className="hidden w-10 md:block"></div>}
+        {router.asPath !== "/" && <div className="hidden w-10 md:block" />}
         <div className="flex-1 max-w-full">
           <Component {...pageProps} />
         </div>
