@@ -242,7 +242,6 @@ function Books({ data }: { data: any[] }) {
         {
           <div className="grid grid-flow-row grid-cols-1 gap-8 p-4 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {data.map(({ id, cover: { url } }) => {
-              console.log(id);
               return (
                 <div
                   key={id}
