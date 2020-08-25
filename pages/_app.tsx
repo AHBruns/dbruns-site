@@ -133,7 +133,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <div>
       {router.asPath !== "/" && <div className="p-10 bg-red-500" />}
-      {/* <div className="p-10 bg-green-500" /> */}
+      <div className="p-10 bg-green-500" />
       {/* <Component {...pageProps} /> */}
     </div>
   );
