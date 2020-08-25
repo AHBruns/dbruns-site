@@ -1,11 +1,10 @@
 import React from "react";
 import Header from "components/Header";
-import Footer from "components/Footer";
 import Button from "components/Button";
 
 function Contact() {
   return (
-    <div className="relative flex flex-col justify-between sm:min-h-screen">
+    <div className="relative flex flex-col justify-between min-h-screen">
       <Header />
       <main
         className="flex items-center justify-center flex-1 w-full"
@@ -18,7 +17,7 @@ function Contact() {
         }}
       >
         <div className="flex items-center justify-center w-full max-w-2xl p-4">
-          <div className="flex flex-col w-full max-w-md p-4 space-y-4 bg-white shadow-lg /rounded-md">
+          <div className="flex flex-col w-full max-w-md p-4 space-y-4 bg-white shadow-lg">
             <h1 className="text-3xl font-bold leading-tight tracking-wider text-gray-800 uppercase">
               Let's talk
             </h1>
@@ -35,9 +34,6 @@ function Contact() {
             <Button className="px-3 py-2 space-x-2 font-semibold tracking-wider text-white bg-gray-800 shadow-md focus:outline-none hover:bg-gray-700">
               Submit
             </Button>
-            {/* <button>
-              <p></p>
-            </button> */}
           </div>
         </div>
       </main>
