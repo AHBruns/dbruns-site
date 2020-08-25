@@ -67,7 +67,9 @@ function Header() {
           </Link>
           <ul className="justify-center hidden space-x-4 text-gray-800 sm:flex">
             {HEADER_DATA.map(({ href, text }) => (
-              <HeaderLink href={href}>{text}</HeaderLink>
+              <HeaderLink href={href} key={href}>
+                {text}
+              </HeaderLink>
             ))}
           </ul>
         </div>
@@ -109,7 +111,7 @@ function Header() {
           </button>
           <ul className="pt-8 space-y-4 text-white">
             {HEADER_DATA.map(({ href, text }) => (
-              <HeaderLink href={href} mobile>
+              <HeaderLink href={href} key={href} mobile>
                 {text}
               </HeaderLink>
             ))}

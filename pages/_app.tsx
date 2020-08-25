@@ -8,8 +8,10 @@ function App({ Component, pageProps }: AppProps) {
   const [openness, setOpenness] = useState("CLOSED");
   const router = useRouter();
 
+  console.log(router.asPath);
+
   return (
-    <>
+    <div>
       {router.asPath !== "/" && (
         <div
           className="fixed inset-y-0 left-0 z-40 hidden transition-all duration-300 ease-in-out bg-gray-800 md:flex"
@@ -120,7 +122,7 @@ function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
