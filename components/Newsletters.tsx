@@ -73,7 +73,7 @@ function Newsletters({
   const [showingTheme, setShowingTheme] = useState("NONE");
 
   return (
-    <main
+    <div
       className={`z-20 relative flex flex-col overflow-hidden items-center justify-center w-full h-full`}
     >
       <img
@@ -150,7 +150,7 @@ function Newsletters({
           </div>
         </>
       )}
-    </main>
+    </div>
   );
 }
 

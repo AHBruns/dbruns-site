@@ -50,7 +50,7 @@ function Index({ data }: any) {
   return (
     <div className="relative z-10 flex flex-col justify-between sm:min-h-screen">
       <Header />
-      <main className="flex items-center justify-center flex-1 overflow-hidden">
+      <div className="flex items-center justify-center flex-1 overflow-hidden">
         <img
           src="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg"
           className="absolute inset-0 hidden object-cover min-w-full min-h-full md:block"
@@ -75,7 +75,7 @@ function Index({ data }: any) {
             />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
