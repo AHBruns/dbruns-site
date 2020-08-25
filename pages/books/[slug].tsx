@@ -6,9 +6,6 @@ import MD from "react-markdown";
 
 function Book({ data }) {
   const router = useRouter();
-  const { slug } = router.query;
-
-  console.log(data);
 
   if (router.isFallback) return null;
 
@@ -82,6 +79,7 @@ function Book({ data }) {
                       .replace(/_/g, " ");
                     return (
                       <a
+                        key={link}
                         href={link}
                         target="_blank"
                         className="px-6 py-3 m-3 font-extrabold leading-tight tracking-wider text-white uppercase whitespace-no-wrap bg-orange-500 shadow-lg hover:bg-orange-400 "

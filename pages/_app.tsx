@@ -7,8 +7,6 @@ function App({ Component, pageProps }: AppProps) {
   const [openness, setOpenness] = useState("CLOSED");
   const router = { asPath: "/" }; //useRouter();
 
-  console.log(router.asPath);
-
   return (
     <div>
       {router.asPath !== "/" && (
