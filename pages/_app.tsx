@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { AppProps } from "next/app";
 import "lib/tailwind.css";
-import Newsletters from "components/Newsletters";
 import { useRouter } from "next/router";
 
 // function App({ Component, pageProps }: AppProps) {
@@ -127,7 +126,6 @@ import { useRouter } from "next/router";
 // }
 
 function App({ Component, pageProps }: AppProps) {
-  const [openness, setOpenness] = useState("CLOSED");
   const router = useRouter();
 
   console.log(router.asPath);
