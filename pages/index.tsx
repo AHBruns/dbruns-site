@@ -48,37 +48,35 @@ function NewsletterCard({ title, body }: { title: string; body: string }) {
 
 function Index({ data }: any) {
   return (
-    <>
-      <div className="relative z-10 flex flex-col justify-between sm:min-h-screen">
-        <Header />
-        <main className="flex items-center justify-center flex-1 overflow-hidden">
-          <img
-            src="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg"
-            className="absolute inset-0 hidden object-cover min-w-full min-h-full md:block"
-          />
-          <div className="px-4 py-4 space-y-8 md:px-16 md:space-y-0">
-            <h1 className="relative z-10 block max-w-5xl p-4 text-3xl font-bold leading-tight tracking-wider text-center text-white uppercase bg-gray-800 md:text-gray-800 md:bg-white md:hidden">
-              {data.mainText.text}
-            </h1>
-            <div className="relative z-20 flex transform md:justify-end md:translate-x-8 md:translate-y-8">
-              <NewsletterCard
-                title={data.theTwoNavyGuysReaderGroup.title}
-                body={data.theTwoNavyGuysReaderGroup.body}
-              />
-            </div>
-            <h1 className="relative z-10 hidden max-w-5xl px-8 py-12 text-5xl font-bold leading-tight tracking-wider text-center text-gray-800 uppercase bg-white md:block">
-              {data.mainText.text}
-            </h1>
-            <div className="relative z-20 flex transform md:justify-start md:-translate-x-8 md:-translate-y-8">
-              <NewsletterCard
-                title={data.theSpeculativeReadersGroup.title}
-                body={data.theSpeculativeReadersGroup.body}
-              />
-            </div>
+    <div className="relative z-10 flex flex-col justify-between sm:min-h-screen">
+      <Header />
+      <main className="flex items-center justify-center flex-1 overflow-hidden">
+        <img
+          src="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg"
+          className="absolute inset-0 hidden object-cover min-w-full min-h-full md:block"
+        />
+        <div className="px-4 py-4 space-y-8 md:px-16 md:space-y-0">
+          <h1 className="relative z-10 block max-w-5xl p-4 text-3xl font-bold leading-tight tracking-wider text-center text-white uppercase bg-gray-800 md:text-gray-800 md:bg-white md:hidden">
+            {data.mainText.text}
+          </h1>
+          <div className="relative z-20 flex transform md:justify-end md:translate-x-8 md:translate-y-8">
+            <NewsletterCard
+              title={data.theTwoNavyGuysReaderGroup.title}
+              body={data.theTwoNavyGuysReaderGroup.body}
+            />
           </div>
-        </main>
-      </div>
-    </>
+          <h1 className="relative z-10 hidden max-w-5xl px-8 py-12 text-5xl font-bold leading-tight tracking-wider text-center text-gray-800 uppercase bg-white md:block">
+            {data.mainText.text}
+          </h1>
+          <div className="relative z-20 flex transform md:justify-start md:-translate-x-8 md:-translate-y-8">
+            <NewsletterCard
+              title={data.theSpeculativeReadersGroup.title}
+              body={data.theSpeculativeReadersGroup.body}
+            />
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
 
