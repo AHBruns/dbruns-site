@@ -3,6 +3,7 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import { useRouter } from "next/dist/client/router";
 import MD from "react-markdown";
+import { markdownToStringifiedHTML } from "lib/markdown";
 
 function Book({ data }) {
   const router = useRouter();
@@ -13,7 +14,7 @@ function Book({ data }) {
     <div className="relative flex flex-col justify-start max-w-full sm:min-h-screen">
       <Header />
       <main className="max-w-full">
-        <div className="max-w-6xl p-4 mx-auto space-y-8">
+        <div className="max-w-6xl px-4 py-8 mx-auto space-y-8">
           {/* info */}
           <div>
             <div className="flex flex-col flex-wrap items-center space-y-2">
@@ -61,7 +62,10 @@ function Book({ data }) {
                     {data.tag_line}
                   </h2>
                 )}
-                <MD source={data.description} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: data.description }}
+                  className="space-y-4"
+                />
               </div>
             </div>
           </div>
@@ -129,13 +133,18 @@ function Book({ data }) {
 }
 
 export async function getStaticProps({ params }) {
+  const data = await (
+    await fetch(
+      `https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/books/${params.slug}`
+    )
+  ).json();
+
   return {
     props: {
-      data: await (
-        await fetch(
-          `https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/books/${params.slug}`
-        )
-      ).json(),
+      data: {
+        ...data,
+        description: markdownToStringifiedHTML(data.description),
+      },
     },
     revalidate: 15,
   };

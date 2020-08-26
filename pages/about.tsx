@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "components/Header";
+import { markdownToStringifiedHTML } from "lib/markdown";
 
 function About({ data }) {
   return (
@@ -19,10 +20,10 @@ function About({ data }) {
               className="w-full mb-4 ml-4 sm:w-auto"
               style={{ float: "right" }}
             />
-
-            {data.description.split("\n").flatMap((elem) => (
-              <p>{elem}</p>
-            ))}
+            <div
+              dangerouslySetInnerHTML={{ __html: data.description }}
+              className="space-y-4"
+            />
           </p>
           <div className="flex flex-col items-center justify-center p-4 space-y-4 bg-gray-800 shadow-lg">
             <h1 className="text-lg font-semibold leading-tight tracking-wider text-center text-white ">
@@ -31,9 +32,9 @@ function About({ data }) {
             <iframe
               style={{
                 width:
-                  "min(calc(64rem - 32px - 32px), calc(100vw - 40px - 32px - 32px))",
+                  "min(calc(64rem - 32px - 32px), calc(100vw - 32px - 32px))",
                 height:
-                  "calc(min(calc(64rem - 32px - 32px), calc(100vw - 40px - 32px - 32px)) * 9 / 16)",
+                  "calc(min(calc(64rem - 32px - 32px), calc(100vw - 32px - 32px)) * 9 / 16)",
               }}
               src={data.youtube_embed_link}
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -46,13 +47,18 @@ function About({ data }) {
 }
 
 export async function getStaticProps() {
+  const data = await (
+    await fetch(
+      "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/about-page"
+    )
+  ).json();
+
   return {
     props: {
-      data: await (
-        await fetch(
-          "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/about-page"
-        )
-      ).json(),
+      data: {
+        ...data,
+        description: markdownToStringifiedHTML(data.description),
+      },
     },
     revalidate: 15,
   };

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "components/Header";
-import MD from "react-markdown";
 import Button from "components/Button";
+import { markdownToStringifiedHTML } from "lib/markdown";
 
 function NewsletterCard({ title, body }: { title: string; body: string }) {
   return (
@@ -14,24 +14,9 @@ function NewsletterCard({ title, body }: { title: string; body: string }) {
       <h1 className="text-xl font-bold leading-tight tracking-wider text-center text-white uppercase md:text-left">
         {title}
       </h1>
-      <MD
-        source={body}
+      <div
+        dangerouslySetInnerHTML={{ __html: body }}
         className="space-y-4 font-light tracking-wider text-gray-100"
-        renderers={{
-          image: ({ alt, src }) => {
-            return (
-              <img
-                className="block max-w-xs mx-auto md:hidden"
-                src={
-                  src[0] === "/"
-                    ? `https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${src}`
-                    : src
-                }
-                alt={alt}
-              />
-            );
-          },
-        }}
       />
       <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
         <input
@@ -50,7 +35,7 @@ function Index({ data }: any) {
   return (
     <div className="relative z-10 flex flex-col justify-between sm:min-h-screen">
       <Header />
-      <div className="flex items-center justify-center flex-1 overflow-hidden">
+      <div className="flex items-center justify-center flex-1 p-4 overflow-hidden">
         <img
           src="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg"
           className="absolute inset-0 hidden object-cover min-w-full min-h-full md:block"
@@ -81,19 +66,29 @@ function Index({ data }: any) {
 }
 
 export async function getStaticProps() {
+  const twoNavyGuysData = await (
+    await fetch(
+      "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/the-twonavy-guys-reader-group-card"
+    )
+  ).json();
+
+  const speculativeReadersData = await (
+    await fetch(
+      "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/the-speculative-readers-group-card"
+    )
+  ).json();
+
   return {
     props: {
       data: {
-        theTwoNavyGuysReaderGroup: await (
-          await fetch(
-            "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/the-twonavy-guys-reader-group-card"
-          )
-        ).json(),
-        theSpeculativeReadersGroup: await (
-          await fetch(
-            "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/the-speculative-readers-group-card"
-          )
-        ).json(),
+        theTwoNavyGuysReaderGroup: {
+          title: twoNavyGuysData.title,
+          body: markdownToStringifiedHTML(twoNavyGuysData.body),
+        },
+        theSpeculativeReadersGroup: {
+          title: speculativeReadersData.title,
+          body: markdownToStringifiedHTML(speculativeReadersData.body),
+        },
         mainText: await (
           await fetch(
             "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/landing-page-main-text"

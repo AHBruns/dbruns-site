@@ -21,12 +21,10 @@ function Contact() {
             <h1 className="text-3xl font-bold leading-tight tracking-wider text-gray-800 uppercase">
               Let's talk
             </h1>
-
             <input
               className="px-3 py-2 text-white bg-gray-800 hadow-md /rounded-md focus:outline-none"
               placeholder="your email"
             />
-
             <textarea
               placeholder="your message"
               className="px-3 py-2 text-white bg-gray-800 shadow-md /rounded-md h-52 max-h-96 focus:outline-none"
