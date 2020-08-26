@@ -36,9 +36,9 @@ function Book({ href, src }: { href?: string; src: string }) {
           position: relative;
           transform-style: preserve-3d;
           transform: rotateY(-30deg);
+          animation-delay: 300ms;
           transition: 1s ease;
           animation: 1s ease 0s 1 initAnimation;
-          animation-delay: 300ms;
         }
 
         .book:hover {

@@ -113,6 +113,7 @@ function Book({ data }) {
                       (bookRecommendation) => {
                         return (
                           <div
+                            key={bookRecommendation.cover.url}
                             className="flex items-center justify-center"
                             style={{ minWidth: 45 * 4 }}
                           >
