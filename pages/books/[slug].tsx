@@ -1,9 +1,8 @@
 import React from "react";
 import Header from "components/Header";
-import Footer from "components/Footer";
 import { useRouter } from "next/dist/client/router";
-import MD from "react-markdown";
 import { markdownToStringifiedHTML } from "lib/markdown";
+import ThreeDimensionalBook from "components/3DBook";
 
 function Book({ data }) {
   const router = useRouter();
@@ -44,16 +43,21 @@ function Book({ data }) {
           {/* img & desc */}
           <div>
             <div className="flex flex-col items-stretch space-x-0 space-y-8 md:space-y-0 md:space-x-4 md:flex-row">
-              <div className="relative flex items-center justify-center p-8 overflow-hidden bg-gray-100 shadow-inner">
-                <div className="shadow-xl">
+              <div className="relative flex items-center justify-center p-16 overflow-hidden bg-gray-100 shadow-inner">
+                <div className="transform scale-125">
+                  {/* <div className="shadow-xl">
                   <div className="shadow-lg">
-                    <div className="shadow-lg">
-                      <img
-                        src={`https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${data.cover.url}`}
+                    <div className="shadow-lg"> */}
+                  {/* <img
+                        src={}
                         className="shadow-xl w-80"
-                      />
-                    </div>
+                      /> */}
+                  <ThreeDimensionalBook
+                    src={`https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${data.cover.url}`}
+                  />
+                  {/* </div>
                   </div>
+                </div> */}
                 </div>
               </div>
               <div className="flex-1 space-y-4 tracking-wider text-gray-800">
@@ -99,28 +103,33 @@ function Book({ data }) {
           {/* recommendations */}
           {data.recommendations?.book_recommendations && (
             <div>
-              <div className="flex flex-col items-center max-w-full overflow-x-auto bg-gray-100 shadow-inner">
+              <div className="flex flex-col items-center max-w-full bg-gray-100 shadow-inner">
                 <h1 className="px-4 pt-4 text-lg font-black leading-tight tracking-wider text-center text-gray-800 uppercase md:text-3xl">
                   Recommendations based on this book
                 </h1>
-                <div className="flex justify-center w-full max-w-full p-4 overflow-x-auto">
-                  <div className="flex items-center justify-start mx-auto space-x-4">
+                <div className="flex items-center justify-center w-full p-4 overflow-x-auto">
+                  <div className="flex justify-start min-w-full space-x-2 overflow-x-auto">
                     {data.recommendations.book_recommendations.map(
                       (bookRecommendation) => {
                         return (
-                          <a
-                            href={`/books/${bookRecommendation.id}`}
-                            target="_blank"
+                          <div
+                            className="flex items-center justify-center"
+                            style={{ minWidth: 45 * 4 }}
                           >
-                            <img
-                              className="h-64 shadow-lg"
-                              src={`https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${bookRecommendation.cover.url}`}
-                            />
-                          </a>
+                            <a
+                              href={`/books/${bookRecommendation.id}`}
+                              target="_blank"
+                            >
+                              <img
+                                className="shadow-lg"
+                                style={{ maxHeight: 64 * 4 }}
+                                src={`https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${bookRecommendation.cover.url}`}
+                              />
+                            </a>
+                          </div>
                         );
                       }
                     )}
-                    <div className="h-full" style={{ minWidth: 1 }} />
                   </div>
                 </div>
               </div>

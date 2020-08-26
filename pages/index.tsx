@@ -2,8 +2,17 @@ import React from "react";
 import Header from "components/Header";
 import Button from "components/Button";
 import { markdownToStringifiedHTML } from "lib/markdown";
+import ThreeDimensionalBook from "components/3DBook";
 
-function NewsletterCard({ title, body }: { title: string; body: string }) {
+function NewsletterCard({
+  title,
+  body,
+  img,
+}: {
+  title: string;
+  body: string;
+  img: string;
+}) {
   return (
     <div
       className="relative p-4 space-y-4 bg-gray-800 shadow-md md:bg-opacity-75 md:max-w-lg"
@@ -14,6 +23,14 @@ function NewsletterCard({ title, body }: { title: string; body: string }) {
       <h1 className="text-xl font-bold leading-tight tracking-wider text-center text-white uppercase md:text-left">
         {title}
       </h1>
+      <div className="block md:hidden">
+        <ThreeDimensionalBook
+          src={
+            "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site" +
+            img
+          }
+        />
+      </div>
       <div
         dangerouslySetInnerHTML={{ __html: body }}
         className="space-y-4 font-light tracking-wider text-gray-100"
@@ -32,15 +49,17 @@ function NewsletterCard({ title, body }: { title: string; body: string }) {
 }
 
 function Index({ data }: any) {
+  console.log(data.theTwoNavyGuysReaderGroup);
+
   return (
     <div className="relative z-10 flex flex-col justify-between sm:min-h-screen">
       <Header />
       <div className="flex items-center justify-center flex-1 p-4 overflow-hidden">
         <img
           src="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg"
-          className="absolute inset-0 hidden object-cover min-w-full min-h-full md:block"
+          className="absolute inset-0 object-cover min-w-full min-h-full /hidden /md:block"
         />
-        <div className="px-4 py-4 space-y-8 md:px-16 md:space-y-0">
+        <div className="space-y-4 md:px-16 md:space-y-0">
           <h1 className="relative z-10 block max-w-5xl p-4 text-3xl font-bold leading-tight tracking-wider text-center text-white uppercase bg-gray-800 md:text-gray-800 md:bg-white md:hidden">
             {data.mainText.text}
           </h1>
@@ -48,6 +67,7 @@ function Index({ data }: any) {
             <NewsletterCard
               title={data.theTwoNavyGuysReaderGroup.title}
               body={data.theTwoNavyGuysReaderGroup.body}
+              img={data.theTwoNavyGuysReaderGroup.mobile_book_image.url}
             />
           </div>
           <h1 className="relative z-10 hidden max-w-5xl px-8 py-12 text-5xl font-bold leading-tight tracking-wider text-center text-gray-800 uppercase bg-white md:block">
@@ -57,6 +77,7 @@ function Index({ data }: any) {
             <NewsletterCard
               title={data.theSpeculativeReadersGroup.title}
               body={data.theSpeculativeReadersGroup.body}
+              img={data.theSpeculativeReadersGroup.mobile_book_image.url}
             />
           </div>
         </div>
@@ -82,11 +103,11 @@ export async function getStaticProps() {
     props: {
       data: {
         theTwoNavyGuysReaderGroup: {
-          title: twoNavyGuysData.title,
+          ...twoNavyGuysData,
           body: markdownToStringifiedHTML(twoNavyGuysData.body),
         },
         theSpeculativeReadersGroup: {
-          title: speculativeReadersData.title,
+          ...speculativeReadersData,
           body: markdownToStringifiedHTML(speculativeReadersData.body),
         },
         mainText: await (
