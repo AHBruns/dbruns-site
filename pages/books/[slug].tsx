@@ -42,7 +42,18 @@ function Book({ data }) {
           </div>
           {/* img & desc */}
           <div>
-            <div className="flex flex-col items-stretch space-x-0 space-y-8 md:space-y-0 md:space-x-4 md:flex-row">
+            <div className="flex flex-col-reverse items-stretch space-x-0 space-y-8 space-y-reverse md:space-y-0 md:space-x-4 md:flex-row">
+              <div className="flex-1 space-y-4 tracking-wider text-gray-800">
+                {data.tag_line && (
+                  <h2 className="text-2xl font-semibold leading-tight tracking-wider text-gray-800">
+                    {data.tag_line}
+                  </h2>
+                )}
+                <div
+                  dangerouslySetInnerHTML={{ __html: data.description }}
+                  className="space-y-4"
+                />
+              </div>
               <div className="relative flex items-center justify-center p-16 overflow-hidden bg-gray-100 shadow-inner">
                 <div className="transform scale-125">
                   {/* <div className="shadow-xl">
@@ -59,17 +70,6 @@ function Book({ data }) {
                   </div>
                 </div> */}
                 </div>
-              </div>
-              <div className="flex-1 space-y-4 tracking-wider text-gray-800">
-                {data.tag_line && (
-                  <h2 className="text-2xl font-semibold leading-tight tracking-wider text-gray-800">
-                    {data.tag_line}
-                  </h2>
-                )}
-                <div
-                  dangerouslySetInnerHTML={{ __html: data.description }}
-                  className="space-y-4"
-                />
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@ function Book({ data }) {
                   Recommendations based on this book
                 </h1>
                 <div className="flex items-center justify-center w-full p-4 overflow-x-auto">
-                  <div className="flex justify-start min-w-full space-x-2 overflow-x-auto">
+                  <div className="flex justify-start mx-auto space-x-2 overflow-x-auto">
                     {data.recommendations.book_recommendations.map(
                       (bookRecommendation) => {
                         return (
