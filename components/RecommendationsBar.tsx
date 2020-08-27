@@ -30,7 +30,10 @@ function RecommendationsBar({
                   <a className="focus:outline-none group">
                     <div className="bg-gray-800">
                       <img
-                        src={info.coverImageURL}
+                        src={
+                          (info as { id: number; coverImageURL: string })
+                            .coverImageURL
+                        }
                         className="h-64 hover:opacity-75 group-focus:opacity-50"
                       />
                     </div>
@@ -44,7 +47,13 @@ function RecommendationsBar({
                   <a className="focus:outline-none group">
                     <div className="relative flex items-center justify-center h-full p-4 bg-gray-500 hover:bg-gray-600 group-focus:bg-gray-400">
                       <h1 className="w-40 text-3xl font-semibold text-center text-white max-w-40">
-                        {info.name}
+                        {
+                          (info as {
+                            id: number;
+                            name: string;
+                            avatarURL: string;
+                          }).name
+                        }
                       </h1>
                       <span className="absolute px-2 py-1 text-gray-800 bg-white rounded-sm shadow-lg bottom-2 left-2">
                         Author
@@ -59,7 +68,7 @@ function RecommendationsBar({
                   <a className="focus:outline-none group">
                     <div className="relative flex items-center justify-center h-full p-4 bg-gray-500 hover:bg-gray-600 group-focus:bg-gray-400">
                       <h1 className="w-40 text-3xl font-semibold text-center text-white max-w-40">
-                        {info.name}
+                        {(info as { id: number; name: string }).name}
                       </h1>
                       <span className="absolute px-2 py-1 text-gray-800 bg-white rounded-sm shadow-lg bottom-2 left-2">
                         Series
@@ -75,7 +84,7 @@ function RecommendationsBar({
                   <a className="focus:outline-none group">
                     <div className="relative flex items-center justify-center h-full p-4 bg-gray-500 hover:bg-gray-600 group-focus:bg-gray-400">
                       <h1 className="w-40 text-3xl font-semibold text-center text-white max-w-40">
-                        {info.name}
+                        {(info as { id: number; name: string }).name}
                       </h1>
                       <span className="absolute px-2 py-1 text-gray-800 bg-white rounded-sm shadow-lg bottom-2 left-2">
                         Universe
