@@ -3,3 +3,7 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.BACKDROP_BLUR {
+  backdrop-filter: blur(10px);
+}

@@ -2,7 +2,9 @@ import Showdown from "showdown";
 
 const Converter = new Showdown.Converter();
 
-export function markdownToStringifiedHTML(md: string): string {
+export function markdownToStringifiedHTML({ md }: { md: string }): string {
+  if (!md) return;
+
   const matches = md.matchAll(/!\[(.*)\]\((.*)\)/g);
 
   let cleanMD = md;

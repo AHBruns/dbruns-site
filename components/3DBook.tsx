@@ -1,18 +1,32 @@
 import React from "react";
 
-function Book({ href, src }: { href?: string; src: string }) {
+function ThreeDimensionalBook({ href, src }: { href?: string; src: string }) {
   return (
     <div className="px-2 py-6">
-      <a
-        className="book-container"
-        {...(href
-          ? { href, target: "_blank", rel: "noreferrer noopener" }
-          : {})}
-      >
-        <div className="book">
-          <img alt="The Outstanding Developer by Sebastien Castiel" src={src} />
+      {href ? (
+        <a
+          className="book-container"
+          href={href}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <div className="book">
+            <img
+              alt="The Outstanding Developer by Sebastien Castiel"
+              src={src}
+            />
+          </div>
+        </a>
+      ) : (
+        <div className="book-container">
+          <div className="book">
+            <img
+              alt="The Outstanding Developer by Sebastien Castiel"
+              src={src}
+            />
+          </div>
         </div>
-      </a>
+      )}
       <style jsx>{`
         .book-container {
           display: flex;
@@ -55,7 +69,7 @@ function Book({ href, src }: { href?: string; src: string }) {
           transform: translateZ(25px);
           background-color: #01060f;
           border-radius: 1px 2px 2px 1px;
-          box-shadow: 5px 5px 20px #666;
+          box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
         }
 
         .book::before {
@@ -103,11 +117,11 @@ function Book({ href, src }: { href?: string; src: string }) {
           transform: translateZ(-25px);
           background-color: #01060f;
           border-radius: 0 2px 2px 0;
-          box-shadow: -10px 0 50px 10px #666;
+          box-shadow: -10px 0 50px 10px rgba(0, 0, 0, 0.5);
         }
       `}</style>
     </div>
   );
 }
 
-export default Book;
+export default ThreeDimensionalBook;

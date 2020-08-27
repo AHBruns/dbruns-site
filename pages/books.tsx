@@ -1,86 +1,110 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import Header from "components/Header";
+import React from "react";
+import { fetchJSON, prependBaseURL } from "lib/cmsUtils";
+import { Book } from "lib/models/Book";
+import { Series } from "lib/models/Series";
+import BooksPage from "components/BooksPage";
+import { STRINGIFIED_HTML } from "lib/models/aliases";
 
-function ImgCard({
-  id,
-  url,
-  height,
-  width,
-}: {
-  id: string;
-  url: string;
-  height: number;
-  width: number;
-}) {
-  return (
-    <div
-      key={id}
-      className="relative flex items-center justify-center p-8 overflow-hidden rounded-lg shadow-lg"
-    >
-      <div className="shadow-lg">
-        <div className="shadow-lg">
-          <img
-            src={`https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${url}`}
-            className="absolute inset-0 opacity-25"
-            style={{
-              filter: "blur(5px) contrast(200%)",
-            }}
-            height={height.toString()}
-            width={width.toString()}
-          />
-          <Link as={`/books/${id}`} href="/books/[slug]">
-            <img
-              height={height.toString()}
-              width={width.toString()}
-              src={`https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site${url}`}
-              className="relative z-10 object-contain transition-all duration-300 ease-in-out transform rounded-md shadow-lg cursor-pointer hover:scale-110"
-            />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+export interface BooksBookProp {
+  id: number;
+  coverImageURL: string;
 }
 
-function Books({ data }: { data: any[] }) {
-  const [format, setFormat] = useState("all");
-
-  return (
-    <div className="relative flex flex-col justify-between sm:min-h-screen">
-      <Header />
-      <main className="relative z-20 p-4">
-        <h1 className="text-3xl font-semibold leading-tight tracking-wider text-center text-gray-800">
-          Books
-        </h1>
-        {
-          <div className="grid grid-flow-row grid-cols-1 gap-8 p-4 mx-auto max-w-7xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            {data.map(({ id, cover: { url, height, width } }) => {
-              return (
-                <ImgCard
-                  key={id}
-                  id={id}
-                  url={url}
-                  height={height}
-                  width={width}
-                />
-              );
-            })}
-          </div>
-        }
-      </main>
-    </div>
-  );
+export interface BooksSeriesProp {
+  id: number;
+  name: string;
+  description: STRINGIFIED_HTML;
+  books: BooksBookProp[];
 }
 
-export async function getStaticProps() {
+export interface BooksUniverseProp {
+  id: number;
+  name: string;
+  series: BooksSeriesProp[];
+  books: BooksBookProp[];
+}
+
+export interface BooksProps {
+  universes: BooksUniverseProp[];
+  universelessSeries: BooksSeriesProp[];
+  universelessAndSerieslessBooks: BooksBookProp[];
+}
+
+function Books(props: BooksProps) {
+  return <BooksPage {...props} />;
+}
+
+export async function getStaticProps(): Promise<{
+  props: BooksProps;
+  revalidate: number;
+}> {
+  function processBook(book: Book): BooksBookProp {
+    return {
+      id: book.id,
+      coverImageURL: prependBaseURL({ endpoint: book.cover?.url }),
+    };
+  }
+
+  function processSeries(series: Series): BooksSeriesProp {
+    return {
+      id: series.id,
+      name: series.name,
+      description: series.description,
+      books: (series.books as Book[]).map(processBook),
+    };
+  }
+
+  const [
+    partialUniverses,
+    { universelessSeries, allSeries },
+    universelessAndSerieslessBooks,
+  ] = await Promise.all([
+    fetchJSON(
+      prependBaseURL({
+        endpoint: "/universes",
+      })
+    ) as Promise<any[]>,
+    fetchJSON(
+      prependBaseURL({
+        endpoint: "/series",
+      })
+    ).then((series: Series[]) => {
+      return {
+        universelessSeries: series
+          .filter(({ universe }) => !universe)
+          .map(processSeries),
+        allSeries: series,
+      };
+    }),
+    fetchJSON(
+      prependBaseURL({
+        endpoint: "/books",
+      })
+    ).then((books: Book[]) => {
+      return books
+        .filter(({ series, universe }) => !(series || universe))
+        .map(processBook);
+    }),
+  ]);
+
+  const universes = partialUniverses.map(({ name, id, series, books }) => {
+    return {
+      id,
+      name,
+      books: books.map(processBook),
+      series: series
+        .map(({ id }) => {
+          return allSeries.find(({ id: _id }) => id === _id);
+        })
+        .map(processSeries),
+    };
+  });
+
   return {
     props: {
-      data: await (
-        await fetch(
-          "https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/books"
-        )
-      ).json(),
+      universes,
+      universelessSeries,
+      universelessAndSerieslessBooks,
     },
     revalidate: 15,
   };

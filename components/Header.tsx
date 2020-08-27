@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 const HEADER_DATA = [
   { href: "/books", text: "Books" },
@@ -9,116 +8,132 @@ const HEADER_DATA = [
   { href: "/contact", text: "Contact" },
 ];
 
-function HeaderLink({
-  href,
-  children,
-  mobile,
-}: {
-  href: string;
-  children: string | string[];
-  mobile?: boolean;
-}) {
+function DavidBruns() {
   return (
-    <Link href={href}>
-      <a className={`${mobile ? "block mt-4" : ""}`}>
-        <li
-          className={`px-2 py-1 focus:outline-none ${
-            mobile ? "bg-gray-700" : "hover:underline"
-          }`}
-          style={{
-            textDecorationSkip: "ink",
-          }}
-        >
-          {children}
-        </li>
-        <style jsx>{`
-          li {
-            text-decoration-thickness: 25px;
-          }
-        `}</style>
+    <Link href="/">
+      <a className="focus:outline-none focus:underline">
+        <h1 className="text-xl font-bold leading-tight tracking-widest text-gray-700 cursor-pointer hover:text-gray-900">
+          David Bruns
+        </h1>
       </a>
     </Link>
   );
 }
 
-const opaqueOn = ["/"];
+function DesktopHeader() {
+  return (
+    <>
+      <div className="z-50 flex items-center justify-between bg-white bg-opacity-50 BACKDROP_BLUR">
+        <div className="p-4">
+          <DavidBruns />
+        </div>
+        <nav className="flex items-center p-4 space-x-4">
+          {HEADER_DATA.map(({ href, text }) => (
+            <Link href={href} key={text}>
+              <a className="leading-tight tracking-wider text-gray-700 uppercase focus:outline-none focus:underline hover:text-gray-900">
+                {text}
+              </a>
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </>
+  );
+}
 
-function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const router = { asPath: "/" }; //useRouter();
+function MenuIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 menu-alt4">
+      <path
+        fillRule="evenodd"
+        d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function ExitIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="w-12 h-12 x">
+      <path
+        fillRule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function MobileBar({ handleOpenMenu }: { handleOpenMenu: () => void }) {
+  return (
+    <div className="flex items-center justify-between p-3 bg-white bg-opacity-50 BACKDROP_BLUR">
+      <DavidBruns />
+      <button
+        onClick={handleOpenMenu}
+        className="p-1 text-gray-700 rounded-sm focus:outline-none focus:underline focus:shadow-outline-gray"
+      >
+        <MenuIcon />
+      </button>
+    </div>
+  );
+}
+
+function MobileMenu({
+  isOpen,
+  handleClose,
+}: {
+  isOpen: boolean;
+  handleClose: () => void;
+}) {
+  return (
+    <div
+      className={`${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } fixed top-0 inset-0 z-50 transform bg-white transition ease-in-out duration-700 flex flex-col items-center justify-center p-8 space-y-8`}
+    >
+      <button
+        onClick={handleClose}
+        className="p-1 text-gray-800 rounded-sm focus:outline-none focus:shadow-outline-gray"
+      >
+        <ExitIcon />
+      </button>
+      <ul className="space-y-4 text-4xl leading-tight tracking-widest text-center text-gray-800 uppercase">
+        {HEADER_DATA.map(({ href, text }) => (
+          <li onClick={handleClose} key={text}>
+            <Link href={href}>
+              <a className="focus:outline-none focus:underline">{text}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function MobileHeader() {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header
-      className={`sticky top-0 z-30 bg-white ${
-        opaqueOn.includes(router.asPath) ? "bg-opacity-100" : "bg-opacity-50"
-      }`}
-      style={{
-        backdropFilter: "blur(5px)",
-      }}
-    >
-      <nav>
-        <div className="items-baseline justify-between hidden p-4 sm:flex">
-          <Link href="/">
-            <a>
-              <h1 className="text-xl font-bold leading-tight tracking-widest text-gray-800">
-                David Bruns
-              </h1>
-            </a>
-          </Link>
-          <ul className="justify-center hidden space-x-4 text-gray-800 sm:flex">
-            {HEADER_DATA.map(({ href, text }) => (
-              <HeaderLink href={href} key={href}>
-                {text}
-              </HeaderLink>
-            ))}
-          </ul>
+    <div>
+      <MobileBar handleOpenMenu={() => setIsOpen(true)} />
+      <MobileMenu isOpen={isOpen} handleClose={() => setIsOpen(false)} />
+    </div>
+  );
+}
+
+function Header() {
+  return (
+    <>
+      <header className="bg-opacity-50">
+        <div className="hidden sm:block">
+          <DesktopHeader />
         </div>
-        <button
-          onClick={() => setMenuOpen(true)}
-          className="fixed inset-x-0 top-0 z-10 flex justify-end w-full p-4 text-white bg-gray-800 shadow-lg sm:hidden focus:outline-none"
-        >
-          <svg
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-8 h-8 p-1 bg-gray-700 rounded-md menu"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-        <div className="block h-16 sm:hidden" />
-        <div
-          className={`fixed inset-x-0 top-0 z-10 p-4 bg-gray-800 shadow-lg sm:hidden transition-all duration-300 ease-in-out ${
-            menuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
-        >
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="absolute p-1 text-white bg-gray-700 rounded-md focus:outline-none right-4 sfocus:outline-none"
-          >
-            <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 x">
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-          <ul className="pt-8 space-y-4 text-white">
-            {HEADER_DATA.map(({ href, text }) => (
-              <HeaderLink href={href} key={href} mobile>
-                {text}
-              </HeaderLink>
-            ))}
-          </ul>
+        <div className="block sm:hidden">
+          <MobileHeader />
         </div>
-      </nav>
-    </header>
+      </header>
+    </>
   );
 }
 
