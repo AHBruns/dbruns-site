@@ -38,8 +38,10 @@ function SeriesId(props: SeriesIdProps) {
 }
 
 export async function getStaticPaths() {
+  const data = await fetchJSON(prependBaseURL({ endpoint: "/series" }));
+
   return {
-    paths: [],
+    paths: data.map(({ id }) => ({ params: { id } })),
     fallback: true,
   };
 }
