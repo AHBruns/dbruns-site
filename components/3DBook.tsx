@@ -55,7 +55,6 @@ function ThreeDimensionalBook({
                 src={src}
                 height={height}
                 width={width}
-                className="object-contain"
               />
             </div>
           </div>

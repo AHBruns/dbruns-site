@@ -68,7 +68,7 @@ function ExitIcon() {
 
 function MobileBar({ handleOpenMenu }: { handleOpenMenu: () => void }) {
   return (
-    <div className="flex items-center justify-between p-3 bg-white bg-opacity-50 BACKDROP_BLUR">
+    <div className="flex items-center justify-between p-3 bg-gray-200 bg-opacity-50 BACKDROP_BLUR">
       <DavidBruns />
       <button
         onClick={handleOpenMenu}
