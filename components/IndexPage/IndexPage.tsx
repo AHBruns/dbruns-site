@@ -5,11 +5,12 @@ import { Transition } from "@tailwindui/react";
 
 function BackgroundImage({ url }: { url: string }) {
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden bg-gray-800">
       <img
+        loading="lazy"
         alt="image of mars"
         src={url}
-        className="object-cover min-w-full min-h-full"
+        className="hidden object-cover min-w-full min-h-full sm:block"
         height={1080}
         width={1920}
       />
@@ -69,6 +70,7 @@ function IndexPage(props: IndexProps) {
         enterFrom="opacity-0"
         enterTo="opacity-100"
       > */}
+
       <BackgroundImage url="/main_bg.jpg" />
       {/* </Transition> */}
       <Content {...props} />
