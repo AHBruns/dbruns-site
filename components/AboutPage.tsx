@@ -20,7 +20,7 @@ function Blurb({
     <div>
       <img
         src={headshot}
-        className="float-left w-full rounded-sm shadow-lg sm:mr-2 sm:w-auto sm:h-80"
+        className="float-left w-full mb-4 rounded-sm shadow-lg sm:mb-0 sm:mr-2 sm:w-auto sm:h-80"
       />
       <div
         dangerouslySetInnerHTML={{ __html: description }}
