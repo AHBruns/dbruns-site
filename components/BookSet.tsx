@@ -47,9 +47,9 @@ function BookSet({
                 </div>
                 <img
                   src={coverImageURL}
-                  className="block rounded-sm shadow-lg sm:hidden h-52"
-                  height={height}
-                  width={width}
+                  className="block h-64 rounded-sm shadow-lg sm:hidden"
+                  // height={height}
+                  // width={width}
                 />
               </div>
             ) : (

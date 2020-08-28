@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { Transition } from "@tailwindui/react";
 
 const HEADER_DATA = [
   { href: "/books", text: "Books" },
@@ -87,10 +88,15 @@ function MobileMenu({
   handleClose: () => void;
 }) {
   return (
-    <div
-      className={`${
-        isOpen ? "translate-x-0" : "translate-x-full"
-      } fixed top-0 inset-0 z-50 transform bg-white transition ease-in-out duration-700 flex flex-col items-center justify-center p-8 space-y-8`}
+    <Transition
+      className="fixed inset-0 top-0 z-50 flex flex-col items-center justify-center p-8 space-y-8 transition duration-700 ease-in-out transform bg-white"
+      show={isOpen}
+      enter="transition-all duration-300"
+      enterFrom="translate-x-full"
+      enterTo="translate-x-0"
+      leave="transition-all duration-150"
+      leaveFrom="translate-x-0"
+      leaveTo="translate-x-full"
     >
       <button
         onClick={handleClose}
@@ -107,7 +113,7 @@ function MobileMenu({
           </li>
         ))}
       </ul>
-    </div>
+    </Transition>
   );
 }
 
