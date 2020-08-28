@@ -47,6 +47,7 @@ function BookSet({
                   />
                 </div>
                 <img
+                  alt="image of a book"
                   src={coverImageURL}
                   className="block w-auto h-64 rounded-sm shadow-lg sm:hidden"
                   height={height}
@@ -63,6 +64,7 @@ function BookSet({
                 className="m-2 bg-gray-800 rounded-sm"
               >
                 <img
+                  alt="image of a book"
                   src={coverImageURL}
                   className={`${imgClassName} hover:opacity-75`}
                   height={height}

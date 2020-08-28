@@ -18,6 +18,11 @@ function About(props: AboutProps) {
     <>
       <Head>
         <title>About · David Bruns</title>
+        <meta
+          name="description"
+          content="An in-depth description of the author David Bruns' life is given along with a video interview."
+        />
+        <meta name="author" content="David Bruns" />
       </Head>
       <AboutPage {...props} />
     </>

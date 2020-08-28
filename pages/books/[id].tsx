@@ -46,6 +46,20 @@ function Book(props: BooksIdProps) {
     <>
       <Head>
         <title>{`${props.title ? `${props.title} · ` : ""}David Bruns`}</title>
+        <meta
+          name="description"
+          content={
+            props.description ??
+            "An in-depth description of one of David Bruns' best books."
+          }
+        />
+        <meta name="author(s)" content={props.authors.join(", ")} />
+        <meta name="title" content={props.title} />
+        {props.tagLine && <meta name="tag-line" content={props.tagLine} />}
+        <meta
+          name="buy-links"
+          content={props.buyLinks.map(({ link }) => link).join(", ")}
+        />
       </Head>
       {router.isFallback ? null : <BooksIdPage {...props} />}
     </>

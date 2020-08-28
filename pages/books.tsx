@@ -11,6 +11,7 @@ export interface BooksBookProp {
   coverImageURL: string;
   height: number;
   width: number;
+  title: string;
 }
 
 export interface BooksSeriesProp {
@@ -38,6 +39,30 @@ function Books(props: BooksProps) {
     <>
       <Head>
         <title>Books · David Bruns</title>
+        <meta
+          name="description"
+          content="A complete list of books, series, and anthologies written by the author David Bruns."
+        />
+        <meta name="author" content="David Bruns" />
+        <meta
+          name="books, series, and universes"
+          content={[
+            ...props.universes.flatMap(({ name, series }) => [
+              name,
+              ...series.flatMap(({ name, books }) => [
+                name,
+                ...books.flatMap(({ title }) => [title]),
+              ]),
+            ]),
+            ...props.universelessSeries.flatMap(({ name, books }) => [
+              name,
+              ...books.flatMap(({ title }) => [title]),
+            ]),
+            ...props.universelessAndSerieslessBooks.flatMap(({ title }) => [
+              title,
+            ]),
+          ].join(", ")}
+        />
       </Head>
       <BooksPage {...props} />
     </>
@@ -79,6 +104,7 @@ export async function getStaticProps(): Promise<{
       coverImageURL: prependBaseURL({ endpoint: cover.url }),
       height: cover.height,
       width: cover.width,
+      title: book.title,
     };
   }
 

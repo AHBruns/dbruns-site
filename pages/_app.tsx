@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { AppProps } from "next/app";
 import "lib/tailwind.css";
 import Header from "components/Header";
 import PrimaryLayout from "components/PrimaryLayout";
+import Head from "next/head";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <PrimaryLayout header={<Header />} body={<Component {...pageProps} />} />
+    <>
+      <Head>
+        <meta key="robots" name="robots" content="all" />
+        <meta key="googlebot" name="googlebot" content="all" />
+      </Head>
+      <PrimaryLayout header={<Header />} body={<Component {...pageProps} />} />
+    </>
   );
 }
 

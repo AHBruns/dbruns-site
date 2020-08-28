@@ -8,6 +8,7 @@ function Contact() {
     <>
       <Head>
         <title>Contact · David Bruns</title>
+        <meta name="description" content="Contact David Bruns." />
       </Head>
       <div className="relative flex-1">
         <div className="absolute inset-0 overflow-y-auto bg-gray-800">

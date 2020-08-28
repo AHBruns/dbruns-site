@@ -39,6 +39,20 @@ function SeriesId(props: SeriesIdProps) {
     <>
       <Head>
         <title>{`${props.name ? `${props.name} · ` : ""}David Bruns`}</title>
+        <meta
+          name="description"
+          content={
+            props.description ??
+            "An in-depth description of one of David Bruns' best series."
+          }
+        />
+        <meta name="author(s)" content={props.authors.join(", ")} />
+        <meta name="series" content={props.name} />
+        {props.tagLine && <meta name="tag-line" content={props.tagLine} />}
+        <meta
+          name="books"
+          content={props.books.map(({ title }) => title).join(", ")}
+        />
       </Head>
       {router.isFallback ? null : <SeriesIdPage {...props} />}
     </>
@@ -69,11 +83,12 @@ export async function getStaticProps({
         markdownToStringifiedHTML({ md: series.description }) ?? null,
       genres: (series.genres as Genre[]).map(({ name }) => name),
       books: (series.books as Book[]).map(
-        ({ id, cover: { url, height, width } }) => ({
+        ({ id, title, cover: { url, height, width } }) => ({
           id,
           coverImageURL: prependBaseURL({ endpoint: url }),
           height,
           width,
+          title,
         })
       ),
       authors: (series.authors as Author[]).map(({ name }) => name),
