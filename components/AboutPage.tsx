@@ -20,7 +20,7 @@ function Blurb({
     <div>
       <img
         src={headshot}
-        className="float-left w-full pb-2 sm:pr-4 sm:w-auto sm:h-96"
+        className="float-left w-full pb-2 rounded-sm shadow-lg sm:pr-4 sm:w-auto sm:h-96"
       />
       <div
         dangerouslySetInnerHTML={{ __html: description }}
@@ -38,13 +38,14 @@ function VideoSection({
   youtubeEmbedLink: string;
 }) {
   return (
-    <div className="flex flex-col items-center p-4 space-y-4 bg-gray-800">
+    <div className="flex flex-col items-center p-4 space-y-4 bg-gray-800 rounded-sm shadow-lg">
       <h2 className="text-xl font-bold leading-tight tracking-wider text-center text-white">
         {videoHeaderText}
       </h2>
       <iframe
         src={youtubeEmbedLink}
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        className="rounded-sm shadow-lg"
       ></iframe>
       <style jsx>{`
         iframe {
