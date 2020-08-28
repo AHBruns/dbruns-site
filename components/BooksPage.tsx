@@ -13,19 +13,24 @@ function Series({
 }: BooksSeriesProp & { isNested?: boolean } & {
   description?: STRINGIFIED_HTML;
 }) {
+  let header = (
+    <h1
+      className={`${
+        isNested ? "top-14" : "top-0"
+      } z-10 sticky shadow-lg flex items-center justify-center text-2xl font-medium leading-tight tracking-widest text-center group-focus:bg-opacity-75 group-focus:bg-gray-900 text-white bg-gray-800 bg-opacity-75 BACKDROP_BLUR h-12`}
+    >
+      {name}
+    </h1>
+  );
   return (
     <div className="sm:shadow-lg">
-      <Link href="/series/[id]" as={`/series/${id}`}>
-        <a className="focus:outline-none group">
-          <h1
-            className={`${
-              isNested ? "top-14" : "top-0"
-            } z-10 sticky shadow-lg flex items-center justify-center text-2xl font-medium leading-tight tracking-widest text-center group-focus:bg-opacity-75 group-focus:bg-gray-900 text-white bg-gray-800 bg-opacity-75 BACKDROP_BLUR h-12`}
-          >
-            {name}
-          </h1>
-        </a>
-      </Link>
+      {id ? (
+        <Link href="/series/[id]" as={`/series/${id}`}>
+          <a className="focus:outline-none group">{header}</a>
+        </Link>
+      ) : (
+        header
+      )}
       <div className="p-4 space-y-4 bg-gray-800 bg-opacity-25 BACKDROP_BLUR">
         {description && (
           <p className="max-w-4xl mx-auto leading-tight tracking-wider text-center text-white">
