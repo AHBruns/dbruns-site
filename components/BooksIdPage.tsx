@@ -52,7 +52,6 @@ function BooksIdPage({
   recommendations,
   buyLinks,
 }: BooksIdProps) {
-  console.log(buyLinks);
   return (
     <ContentPageLayout>
       {/* img & basic info */}
