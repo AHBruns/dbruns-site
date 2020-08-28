@@ -35,7 +35,7 @@ export interface SeriesIdProps {
 function SeriesId(props: SeriesIdProps) {
   const router = useRouter();
 
-  return (
+  return router.isFallback ? null : (
     <>
       <Head>
         <title>{`${props.name ? `${props.name} · ` : ""}David Bruns`}</title>
@@ -46,7 +46,9 @@ function SeriesId(props: SeriesIdProps) {
             "An in-depth description of one of David Bruns' best series."
           }
         />
-        <meta name="author(s)" content={props.authors.join(", ")} />
+        {props.authors && (
+          <meta name="author(s)" content={props.authors?.join(", ")} />
+        )}
         <meta name="series" content={props.name} />
         {props.tagLine && <meta name="tag-line" content={props.tagLine} />}
         <meta
@@ -54,7 +56,7 @@ function SeriesId(props: SeriesIdProps) {
           content={props.books.map(({ title }) => title).join(", ")}
         />
       </Head>
-      {router.isFallback ? null : <SeriesIdPage {...props} />}
+      <SeriesIdPage {...props} />
     </>
   );
 }

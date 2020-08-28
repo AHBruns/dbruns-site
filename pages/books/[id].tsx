@@ -42,7 +42,7 @@ export interface BooksIdProps {
 function Book(props: BooksIdProps) {
   const router = useRouter();
 
-  return (
+  return router.isFallback ? null : (
     <>
       <Head>
         <title>{`${props.title ? `${props.title} · ` : ""}David Bruns`}</title>
@@ -61,7 +61,7 @@ function Book(props: BooksIdProps) {
           content={props.buyLinks.map(({ link }) => link).join(", ")}
         />
       </Head>
-      {router.isFallback ? null : <BooksIdPage {...props} />}
+      <BooksIdPage {...props} />
     </>
   );
 }
