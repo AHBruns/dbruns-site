@@ -71,6 +71,7 @@ function MobileBar({ handleOpenMenu }: { handleOpenMenu: () => void }) {
     <div className="flex items-center justify-between p-3 bg-gray-200 bg-opacity-50 BACKDROP_BLUR">
       <DavidBruns />
       <button
+        aria-label="open menu"
         onClick={handleOpenMenu}
         className="p-1 text-gray-700 rounded-sm focus:outline-none focus:underline focus:shadow-outline-gray"
       >
@@ -99,6 +100,7 @@ function MobileMenu({
       leaveTo="translate-x-full"
     >
       <button
+        aria-label="close menu"
         onClick={handleClose}
         className="p-1 text-gray-800 rounded-sm focus:outline-none focus:shadow-outline-gray"
       >

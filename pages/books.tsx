@@ -4,7 +4,7 @@ import { Book } from "lib/models/Book";
 import { Series } from "lib/models/Series";
 import BooksPage from "components/BooksPage";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
-import { compileFunction } from "vm";
+import Head from "next/head";
 
 export interface BooksBookProp {
   id: number;
@@ -34,7 +34,14 @@ export interface BooksProps {
 }
 
 function Books(props: BooksProps) {
-  return <BooksPage {...props} />;
+  return (
+    <>
+      <Head>
+        <title>Books · David Bruns</title>
+      </Head>
+      <BooksPage {...props} />
+    </>
+  );
 }
 
 export async function getStaticProps(): Promise<{

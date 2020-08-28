@@ -8,6 +8,7 @@ import {
 } from "lib/cmsUtils";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
 import BooksIdPage from "components/BooksIdPage";
+import Head from "next/head";
 
 export interface BooksIdProps {
   title: string;
@@ -41,7 +42,14 @@ export interface BooksIdProps {
 function Book(props: BooksIdProps) {
   const router = useRouter();
 
-  return router.isFallback ? null : <BooksIdPage {...props} />;
+  return (
+    <>
+      <Head>
+        <title>{`${props.title ? `${props.title} · ` : ""}David Bruns`}</title>
+      </Head>
+      {router.isFallback ? null : <BooksIdPage {...props} />}
+    </>
+  );
 }
 
 export async function getStaticProps({ params }) {

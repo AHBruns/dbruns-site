@@ -6,7 +6,11 @@ import { Transition } from "@tailwindui/react";
 function BackgroundImage({ url }: { url: string }) {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <img src={url} className="object-cover min-w-full min-h-full" />
+      <img
+        alt="image of mars"
+        src={url}
+        className="object-cover min-w-full min-h-full"
+      />
     </div>
   );
 }

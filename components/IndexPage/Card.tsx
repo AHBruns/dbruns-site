@@ -29,11 +29,21 @@ function Card({ title, body, mobileBookImage }: IndexCardProps) {
         className="space-y-4 font-light tracking-wider text-white"
       />
       <div className="flex flex-row space-x-4">
+        <label
+          className="hidden"
+          htmlFor={`email-input-${title.split(" ").join("-")}`}
+        >
+          email
+        </label>
         <input
+          id={`email-input-${title.split(" ").join("-")}`}
           className="flex-1 px-3 py-2 text-gray-800 bg-white rounded-sm shadow-lg focus:outline-none focus:shadow-outline-gray"
           placeholder="john.doe@gmail.com"
         />
-        <Button className="px-3 py-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-lg focus:outline-none focus:shadow-outline-gray hover:bg-gray-700">
+        <Button
+          alt="submit email"
+          className="px-3 py-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-lg focus:outline-none focus:shadow-outline-gray hover:bg-gray-700"
+        >
           Submit
         </Button>
       </div>

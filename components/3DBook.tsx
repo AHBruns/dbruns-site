@@ -37,7 +37,7 @@ function ThreeDimensionalBook({
               <img
                 onLoad={() => setIsLoaded(true)}
                 ref={ref}
-                alt="The Outstanding Developer by Sebastien Castiel"
+                alt="image of a book"
                 src={src}
                 height={height}
                 width={width}
@@ -51,7 +51,7 @@ function ThreeDimensionalBook({
               <img
                 onLoad={() => setIsLoaded(true)}
                 ref={ref}
-                alt="The Outstanding Developer by Sebastien Castiel"
+                alt="image of a book"
                 src={src}
                 height={height}
                 width={width}

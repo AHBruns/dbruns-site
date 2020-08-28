@@ -13,6 +13,7 @@ import { STRINGIFIED_HTML } from "lib/models/aliases";
 import { BooksBookProp as BookProps } from "pages/books";
 import { useRouter } from "next/dist/client/router";
 import { Author } from "lib/models/Author";
+import Head from "next/head";
 
 export interface SeriesIdProps {
   name: string;
@@ -34,7 +35,14 @@ export interface SeriesIdProps {
 function SeriesId(props: SeriesIdProps) {
   const router = useRouter();
 
-  return router.isFallback ? null : <SeriesIdPage {...props} />;
+  return (
+    <>
+      <Head>
+        <title>{`${props.name ? `${props.name} · ` : ""}David Bruns`}</title>
+      </Head>
+      {router.isFallback ? null : <SeriesIdPage {...props} />}
+    </>
+  );
 }
 
 export async function getStaticPaths() {

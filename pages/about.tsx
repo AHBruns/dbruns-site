@@ -3,6 +3,7 @@ import { markdownToStringifiedHTML } from "lib/markdown";
 import { prependBaseURL, fetchJSON } from "lib/cmsUtils";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
 import AboutPage from "components/AboutPage";
+import Head from "next/head";
 
 export interface AboutProps {
   headerText: string;
@@ -13,7 +14,14 @@ export interface AboutProps {
 }
 
 function About(props: AboutProps) {
-  return <AboutPage {...props} />;
+  return (
+    <>
+      <Head>
+        <title>About · David Bruns</title>
+      </Head>
+      <AboutPage {...props} />
+    </>
+  );
 }
 
 export async function getStaticProps(): Promise<{

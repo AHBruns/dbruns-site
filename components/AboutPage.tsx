@@ -19,6 +19,7 @@ function Blurb({
   return (
     <div>
       <img
+        alt="headshot image"
         src={headshot}
         className="float-left w-full mb-4 rounded-sm shadow-lg sm:mb-0 sm:mr-2 sm:w-auto sm:h-80"
       />

@@ -48,7 +48,10 @@ function NewsletterCard({
               className="flex-1 px-3 py-2 text-gray-800 bg-white rounded-md shadow-md focus:outline-none"
               placeholder="john.doe@gmail.com"
             />
-            <button className="px-3 py-2 font-semibold tracking-wider text-white bg-gray-800 rounded-md shadow-md">
+            <button
+              aria-label="submit email"
+              className="px-3 py-2 font-semibold tracking-wider text-white bg-gray-800 rounded-md shadow-md"
+            >
               Submit
             </button>
           </div>

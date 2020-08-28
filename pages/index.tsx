@@ -3,6 +3,7 @@ import { markdownToStringifiedHTML } from "lib/markdown";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
 import { prependBaseURL, fetchJSON } from "lib/cmsUtils";
 import IndexPage from "components/IndexPage/IndexPage";
+import Head from "next/head";
 
 export interface IndexCardProps {
   title: string;
@@ -21,7 +22,14 @@ export interface IndexProps {
 }
 
 function Index(props: IndexProps) {
-  return <IndexPage {...props} />;
+  return (
+    <>
+      <Head>
+        <title>David Bruns</title>
+      </Head>
+      <IndexPage {...props} />
+    </>
+  );
 }
 
 export async function getStaticProps(): Promise<{

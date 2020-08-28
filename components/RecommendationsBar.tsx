@@ -30,6 +30,7 @@ function RecommendationsBar({
                   <a className="focus:outline-none group">
                     <div className="bg-gray-800">
                       <img
+                        alt="image of a book"
                         src={
                           (info as { id: number; coverImageURL: string })
                             .coverImageURL
