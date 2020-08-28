@@ -63,11 +63,11 @@ function IndexPage(props: IndexProps) {
       <Transition
         appear
         show
-        enter="transition-opacity duration-1000 ease-in"
+        enter="transition-opacity duration-500 ease-in"
         enterFrom="opacity-0"
         enterTo="opacity-100"
       >
-        <BackgroundImage url="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg" />
+        <BackgroundImage url="https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/uploads/3_mars_9b3fbe0746.jpg" />
       </Transition>
       <Content {...props} />
     </div>

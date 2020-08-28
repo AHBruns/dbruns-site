@@ -97,8 +97,6 @@ export async function getStaticProps(): Promise<{
       [undefined, book.cover]
     );
 
-    console.log([_, cover]);
-
     return {
       id: book.id,
       coverImageURL: prependBaseURL({ endpoint: cover.url }),
