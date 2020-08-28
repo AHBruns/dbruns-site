@@ -5,11 +5,13 @@ function ThreeDimensionalBook({
   width,
   href,
   src,
+  lazyLoad,
 }: {
   height: number;
   width: number;
   href?: string;
   src: string;
+  lazyLoad?: boolean;
 }) {
   const ref: RefObject<HTMLImageElement> = useRef(null);
 
@@ -35,6 +37,7 @@ function ThreeDimensionalBook({
           >
             <div className="book">
               <img
+                loading={lazyLoad ? "lazy" : "eager"}
                 onLoad={() => setIsLoaded(true)}
                 ref={ref}
                 alt="image of a book"
@@ -49,6 +52,7 @@ function ThreeDimensionalBook({
           <div className="book-container">
             <div className="book">
               <img
+                loading={lazyLoad ? "lazy" : "eager"}
                 onLoad={() => setIsLoaded(true)}
                 ref={ref}
                 alt="image of a book"

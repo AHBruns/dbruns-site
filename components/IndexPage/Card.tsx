@@ -19,6 +19,7 @@ function Card({ title, body, mobileBookImage }: IndexCardProps) {
       </h1>
       <div className="block sm:hidden">
         <ThreeDimensionalBook
+          lazyLoad
           src={mobileBookImage.url}
           height={mobileBookImage.height}
           width={mobileBookImage.width}
