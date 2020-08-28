@@ -13,23 +13,24 @@ function Series({
 }: BooksSeriesProp & { isNested?: boolean } & {
   description?: STRINGIFIED_HTML;
 }) {
-  let header = (
-    <h1
-      className={`${
-        isNested ? "top-14" : "top-0"
-      } z-10 sticky shadow-lg flex items-center justify-center text-2xl font-medium leading-tight tracking-widest text-center group-focus:bg-opacity-75 group-focus:bg-gray-900 text-white bg-gray-800 bg-opacity-75 BACKDROP_BLUR h-12`}
-    >
-      {name}
-    </h1>
-  );
+  console.log({
+    id,
+    name,
+    description,
+    books,
+    isNested,
+  });
+  const classes = `${
+    isNested ? "top-14" : "top-0"
+  } z-10 sticky shadow-lg flex items-center justify-center focus:bg-opacity-75 focus:bg-gray-900 text-2xl font-medium leading-tight tracking-widest text-center text-white bg-gray-800 bg-opacity-75 BACKDROP_BLUR h-12`;
   return (
     <div className="sm:shadow-lg">
       {id ? (
         <Link href="/series/[id]" as={`/series/${id}`}>
-          <a className="focus:outline-none group">{header}</a>
+          <a className={`${classes} focus:outline-none`}>{name}</a>
         </Link>
       ) : (
-        header
+        <h1 className={classes}>{name}</h1>
       )}
       <div className="p-4 space-y-4 bg-gray-800 bg-opacity-25 BACKDROP_BLUR">
         {description && (
@@ -85,8 +86,12 @@ function BooksPage({
   return (
     <div className="relative flex-1">
       <BackgroundImage url="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg" />
+      {/* <div className="absolute inset-0 overflow-y-auto">
+        <div className="w-32 h-screen bg-green-500"></div>
+        <div className="w-32 h-screen bg-red-500"></div>
+      </div> */}
       <div className="absolute inset-0 overflow-y-auto">
-        <div className="relative flex flex-col flex-1 mx-auto sm:space-y-8 sm:py-8 max-w-7xl">
+        <div className="flex flex-col flex-1 mx-auto sm:space-y-8 sm:py-8 max-w-7xl">
           {universes.map((universe, index) => (
             <Universe {...universe} key={`2-${index}`} />
           ))}
