@@ -34,6 +34,8 @@ export interface BooksIdProps {
   isbn10: number;
   isbn13: number;
   id: number;
+  height: number;
+  width: number;
 }
 
 function Book(props: BooksIdProps) {
@@ -64,6 +66,8 @@ export async function getStaticProps({ params }) {
       ...(data.cover?.url
         ? { coverImageURL: prependBaseURL({ endpoint: data.cover.url }) }
         : {}),
+      height: data.cover?.height ?? null,
+      width: data.cover?.width ?? null,
       recommendations: extractAndSortRecommendations(data),
       ...(data.series?.name
         ? { series: { id: data.series.id, name: data.series.name } }

@@ -11,7 +11,11 @@ function Card({ title, body, mobileBookImage }: IndexCardProps) {
         {title}
       </h1>
       <div className="block sm:hidden">
-        <ThreeDimensionalBook src={mobileBookImage} />
+        <ThreeDimensionalBook
+          src={mobileBookImage.url}
+          height={mobileBookImage.height}
+          width={mobileBookImage.width}
+        />
       </div>
       <div
         dangerouslySetInnerHTML={{ __html: body }}

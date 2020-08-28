@@ -6,7 +6,7 @@ function BookSet({
   books,
   size,
 }: {
-  books: { id: number; coverImageURL: string }[];
+  books: { id: number; coverImageURL: string; height: number; width: number }[];
   size: "small" | "medium" | "large" | "3D";
 }) {
   let imgClassName: string;
@@ -33,21 +33,32 @@ function BookSet({
 
   return (
     <div className={`${containerClassNameExt} flex flex-wrap justify-center`}>
-      {books.map(({ id, coverImageURL }, index) => (
+      {books.map(({ id, coverImageURL, height, width }, index) => (
         <Link key={index} href="/books/[id]" as={`/books/${id}`}>
           <a className="focus:outline-none group">
             {size === "3D" ? (
               <div className="p-4 rounded-lg group-focus:bg-opacity-25 group-focus:bg-gray-800 group-focus:shadow-lg">
                 <div className="hidden sm:block">
-                  <ThreeDimensionalBook src={coverImageURL} />
+                  <ThreeDimensionalBook
+                    src={coverImageURL}
+                    height={height}
+                    width={width}
+                  />
                 </div>
                 <img
                   src={coverImageURL}
                   className="block rounded-sm shadow-lg sm:hidden h-52"
+                  height={height}
+                  width={width}
                 />
               </div>
             ) : (
-              <img src={coverImageURL} className={imgClassName} />
+              <img
+                src={coverImageURL}
+                className={imgClassName}
+                height={height}
+                width={width}
+              />
             )}
           </a>
         </Link>

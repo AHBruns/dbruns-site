@@ -7,7 +7,11 @@ import IndexPage from "components/IndexPage/IndexPage";
 export interface IndexCardProps {
   title: string;
   body: STRINGIFIED_HTML;
-  mobileBookImage: string;
+  mobileBookImage: {
+    url: string;
+    height: number;
+    width: number;
+  };
 }
 
 export interface IndexProps {
@@ -30,14 +34,18 @@ export async function getStaticProps(): Promise<{
     body,
   }: {
     title: string;
-    mobile_book_image: { url?: string };
+    mobile_book_image: { url?: string; width?: number; height?: number };
     body: string;
   }) {
     return {
       title: title,
-      mobileBookImage: prependBaseURL({
-        endpoint: mobile_book_image?.url,
-      }),
+      mobileBookImage: {
+        url: prependBaseURL({
+          endpoint: mobile_book_image?.url,
+        }),
+        width: mobile_book_image?.width,
+        height: mobile_book_image?.height,
+      },
       body: markdownToStringifiedHTML({ md: body }),
     };
   }

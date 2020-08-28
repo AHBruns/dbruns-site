@@ -51,6 +51,8 @@ function BooksIdPage({
   description,
   recommendations,
   buyLinks,
+  height,
+  width,
 }: BooksIdProps) {
   return (
     <ContentPageLayout>
@@ -66,7 +68,11 @@ function BooksIdPage({
         </div>
         <div className="col-span-3">
           <div className="float-left min-w-full pb-8 md:pr-12 md:min-w-0 md:pb-0">
-            <ThreeDimensionalBook src={coverImageURL} />
+            <ThreeDimensionalBook
+              src={coverImageURL}
+              height={height}
+              width={width}
+            />
           </div>
           <div
             dangerouslySetInnerHTML={{ __html: description }}

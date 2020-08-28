@@ -8,6 +8,8 @@ import { STRINGIFIED_HTML } from "lib/models/aliases";
 export interface BooksBookProp {
   id: number;
   coverImageURL: string;
+  height: number;
+  width: number;
 }
 
 export interface BooksSeriesProp {
@@ -42,6 +44,8 @@ export async function getStaticProps(): Promise<{
     return {
       id: book.id,
       coverImageURL: prependBaseURL({ endpoint: book.cover?.url }),
+      height: book.cover?.height,
+      width: book.cover?.width,
     };
   }
 

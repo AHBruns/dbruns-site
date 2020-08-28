@@ -60,10 +60,14 @@ export async function getStaticProps({
       description:
         markdownToStringifiedHTML({ md: series.description }) ?? null,
       genres: (series.genres as Genre[]).map(({ name }) => name),
-      books: (series.books as Book[]).map(({ id, cover: { url } }) => ({
-        id,
-        coverImageURL: prependBaseURL({ endpoint: url }),
-      })),
+      books: (series.books as Book[]).map(
+        ({ id, cover: { url, height, width } }) => ({
+          id,
+          coverImageURL: prependBaseURL({ endpoint: url }),
+          height,
+          width,
+        })
+      ),
       authors: (series.authors as Author[]).map(({ name }) => name),
       recommendations: extractAndSortRecommendations(series),
     },

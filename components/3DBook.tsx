@@ -1,6 +1,16 @@
 import React from "react";
 
-function ThreeDimensionalBook({ href, src }: { href?: string; src: string }) {
+function ThreeDimensionalBook({
+  height,
+  width,
+  href,
+  src,
+}: {
+  height: number;
+  width: number;
+  href?: string;
+  src: string;
+}) {
   return (
     <div className="px-2 py-6">
       {href ? (
@@ -14,6 +24,8 @@ function ThreeDimensionalBook({ href, src }: { href?: string; src: string }) {
             <img
               alt="The Outstanding Developer by Sebastien Castiel"
               src={src}
+              height={height}
+              width={width}
             />
           </div>
         </a>
@@ -23,6 +35,8 @@ function ThreeDimensionalBook({ href, src }: { href?: string; src: string }) {
             <img
               alt="The Outstanding Developer by Sebastien Castiel"
               src={src}
+              height={height}
+              width={width}
             />
           </div>
         </div>
