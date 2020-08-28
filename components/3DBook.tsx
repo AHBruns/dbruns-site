@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState, RefObject } from "react";
 
 function ThreeDimensionalBook({
   height,
@@ -11,8 +11,20 @@ function ThreeDimensionalBook({
   href?: string;
   src: string;
 }) {
+  const ref: RefObject<HTMLImageElement> = useRef(null);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (ref.current?.complete) setIsLoaded(true);
+  }, [ref.current]);
+
   return (
-    <div className="px-2 py-6">
+    <div
+      className={`px-2 py-6 transition-all ease-in-out duration-300 ${
+        isLoaded ? "opacity-100" : "opacity-0"
+      }`}
+    >
       {href ? (
         <a
           className="book-container"
@@ -22,6 +34,8 @@ function ThreeDimensionalBook({
         >
           <div className="book">
             <img
+              onLoad={() => setIsLoaded(true)}
+              ref={ref}
               alt="The Outstanding Developer by Sebastien Castiel"
               src={src}
               height={height}
@@ -33,6 +47,8 @@ function ThreeDimensionalBook({
         <div className="book-container">
           <div className="book">
             <img
+              onLoad={() => setIsLoaded(true)}
+              ref={ref}
               alt="The Outstanding Developer by Sebastien Castiel"
               src={src}
               height={height}
