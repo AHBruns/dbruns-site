@@ -10,6 +10,8 @@ function BackgroundImage({ url }: { url: string }) {
         alt="image of mars"
         src={url}
         className="object-cover min-w-full min-h-full"
+        height={1080}
+        width={1920}
       />
     </div>
   );
@@ -60,15 +62,15 @@ function Content({ card1, card2, primaryText }: IndexProps) {
 function IndexPage(props: IndexProps) {
   return (
     <div className="relative flex flex-col items-center justify-center flex-1">
-      <Transition
+      {/* <Transition
         appear
         show
         enter="transition-opacity duration-500 ease-in"
         enterFrom="opacity-0"
         enterTo="opacity-100"
-      >
-        <BackgroundImage url="https://www.master-7rqtwti-hmyhm4xzoek6k.us-2.platformsh.site/uploads/3_mars_9b3fbe0746.jpg" />
-      </Transition>
+      > */}
+      <BackgroundImage url="/main_bg.jpg" />
+      {/* </Transition> */}
       <Content {...props} />
     </div>
   );
