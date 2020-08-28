@@ -53,7 +53,7 @@ function BookSet({
                 />
               </div>
             ) : (
-              <div className="m-2 bg-gray-800">
+              <div className="m-2 bg-gray-800 rounded-sm">
                 <img
                   src={coverImageURL}
                   className={`${imgClassName} hover:opacity-75`}
