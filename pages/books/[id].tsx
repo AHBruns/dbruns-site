@@ -85,7 +85,7 @@ export async function getStaticPaths() {
   const data = await fetchJSON(prependBaseURL({ endpoint: "/books" }));
 
   return {
-    paths: data.map(({ id }) => ({ params: { id } })),
+    paths: data.map(({ id }) => ({ params: { id: id.toString() } })),
     fallback: true,
   };
 }
