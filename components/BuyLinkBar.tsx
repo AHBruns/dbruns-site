@@ -8,7 +8,7 @@ function BuyLinkBar({
   return (
     <div className="pt-4 bg-gray-100 rounded-sm shadow-inner">
       <h1 className="px-4 text-3xl font-semibold leading-tight tracking-wider text-center text-gray-800">
-        Buy it here!
+        Available here!
       </h1>
       <div className="flex flex-col flex-wrap justify-center p-4 md:flex-row">
         {buyLinks.map(({ platform, link }) => {
@@ -21,6 +21,7 @@ function BuyLinkBar({
               cleanedPlatform = platform;
               break;
           }
+          cleanedPlatform = cleanedPlatform.replace("_", " ");
           return (
             <a href={link} target="_blank" className="focus:outline-none group">
               <div className="px-6 py-3 m-2 text-lg font-bold leading-tight tracking-wider text-white uppercase bg-orange-500 rounded-sm shadow-lg group-focus:bg-orange-600 focus:bg-orange-600 hover:bg-orange-400">
