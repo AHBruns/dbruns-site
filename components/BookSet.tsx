@@ -1,6 +1,7 @@
 import React from "react";
 import ThreeDimensionalBook from "./3DBook";
 import Link from "next/link";
+import { Transition } from "@tailwindui/react";
 
 function BookSet({
   books,
@@ -53,14 +54,21 @@ function BookSet({
                 />
               </div>
             ) : (
-              <div className="m-2 bg-gray-800 rounded-sm">
+              <Transition
+                appear
+                show
+                enter="transition-all transform ease-out duration-300"
+                enterFrom="opacity-0 scale-50 translate-y-4"
+                enterTo="opacity-100 scale-100 translate-y-0"
+                className="m-2 bg-gray-800 rounded-sm"
+              >
                 <img
                   src={coverImageURL}
                   className={`${imgClassName} hover:opacity-75`}
                   height={height}
                   width={width}
                 />
-              </div>
+              </Transition>
             )}
           </a>
         </Link>

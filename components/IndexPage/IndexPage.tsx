@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import { IndexProps } from "pages";
+import { Transition } from "@tailwindui/react";
 
 function BackgroundImage({ url }: { url: string }) {
   return (
@@ -20,7 +21,14 @@ function CallToAction({ children }: { children: string }) {
 
 function Content({ card1, card2, primaryText }: IndexProps) {
   return (
-    <div className="flex flex-col p-4 space-y-4 sm:space-y-0 sm:p-0">
+    <Transition
+      appear
+      show
+      enter="transition-opacity duration-500 delay-200 ease-in-out"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      className="flex flex-col p-4 space-y-4 sm:space-y-0 sm:p-0"
+    >
       <div className="block sm:hidden">
         <CallToAction>{primaryText}</CallToAction>
       </div>
@@ -41,14 +49,22 @@ function Content({ card1, card2, primaryText }: IndexProps) {
           mobileBookImage={card2.mobileBookImage}
         />
       </div>
-    </div>
+    </Transition>
   );
 }
 
 function IndexPage(props: IndexProps) {
   return (
     <div className="relative flex flex-col items-center justify-center flex-1">
-      <BackgroundImage url="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg" />
+      <Transition
+        appear
+        show
+        enter="transition-opacity duration-1000 ease-in"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+      >
+        <BackgroundImage url="https://scx2.b-cdn.net/gfx/news/hires/2019/3-mars.jpg" />
+      </Transition>
       <Content {...props} />
     </div>
   );

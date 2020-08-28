@@ -3,12 +3,18 @@ import { BooksProps, BooksSeriesProp, BooksUniverseProp } from "pages/books";
 import Link from "next/link";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
 import BookSet from "./BookSet";
+import { Transition } from "@tailwindui/react";
 
 function SeriesHeader({ name, id }: { name: string; id: number }) {
   if (!name && !id) return null;
 
   const Header = (
-    <div
+    <Transition
+      appear
+      show
+      enter="transition-all ease-out duration-300 transform"
+      enterFrom="opacity-0 translate-y-2"
+      enterTo="opacity-100 translate-y-0"
       className={`${
         id ? "group-focus:bg-gray-900 hover:bg-gray-800" : ""
       } px-4 py-2 bg-gray-700 shadow-lg top-14`}
@@ -16,7 +22,7 @@ function SeriesHeader({ name, id }: { name: string; id: number }) {
       <h1 className="text-2xl font-semibold leading-tight tracking-wider text-white">
         {name}
       </h1>
-    </div>
+    </Transition>
   );
 
   return id ? (
@@ -114,6 +120,8 @@ function Series({
 //     </div>
 //   );
 // }
+
+// todo : universes
 
 function BooksPage({
   universes,

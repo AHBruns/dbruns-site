@@ -4,6 +4,7 @@ import { Book } from "lib/models/Book";
 import { Series } from "lib/models/Series";
 import BooksPage from "components/BooksPage";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
+import { compileFunction } from "vm";
 
 export interface BooksBookProp {
   id: number;
@@ -41,11 +42,36 @@ export async function getStaticProps(): Promise<{
   revalidate: number;
 }> {
   function processBook(book: Book): BooksBookProp {
+    const [_, cover] = Object.entries(book.cover.formats).reduce(
+      (acc, elem) => {
+        switch (acc[0]) {
+          case undefined:
+            if (elem[1].size < 150 && elem[1].size > acc[1].size) return elem;
+          case "thumbnail":
+            if (["small", "medium", "large"].includes(elem[0])) return elem;
+            break;
+          case "small":
+            if (["medium", "large"].includes(elem[0])) return elem;
+            break;
+          case "medium":
+            if (["large"].includes(elem[0])) return elem;
+            break;
+          case "large":
+            if ([].includes(elem[0])) return elem;
+            break;
+        }
+        return acc;
+      },
+      [undefined, book.cover]
+    );
+
+    console.log([_, cover]);
+
     return {
       id: book.id,
-      coverImageURL: prependBaseURL({ endpoint: book.cover?.url }),
-      height: book.cover?.height,
-      width: book.cover?.width,
+      coverImageURL: prependBaseURL({ endpoint: cover.url }),
+      height: cover.height,
+      width: cover.width,
     };
   }
 
