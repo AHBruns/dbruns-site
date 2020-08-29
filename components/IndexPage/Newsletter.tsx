@@ -37,21 +37,21 @@ function Newsletter({ title, body, mobileBookImage }: NewsletterProps) {
         dangerouslySetInnerHTML={{ __html: body }}
         className="space-y-4 font-normal tracking-wider text-gray-800 sm:font-light sm:text-white"
       />
-      <label
-        className="hidden"
-        htmlFor={`email-input-${title.split(" ").join("-")}`}
-      >
-        email
-      </label>
+
       <div className="flex flex-row space-x-4">
-        <input
-          id={`email-input-${title.split(" ").join("-")}`}
-          className="flex-1 px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg sm:text-gray-800 sm:bg-white focus:outline-none focus:shadow-outline-gray"
-          placeholder="john.doe@gmail.com"
-        />
+        <label className="flex flex-col flex-1 space-y-1">
+          <p className="text-sm font-semibold tracking-wider text-white">
+            Your email
+          </p>
+          <input
+            id={`email-input-${title.split(" ").join("-")}`}
+            className="flex-1 px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg sm:text-gray-800 sm:bg-white focus:outline-none focus:shadow-outline-gray"
+            placeholder="john.doe@gmail.com"
+          />
+        </label>
         <Button
           alt="submit email"
-          className="px-3 py-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-lg focus:outline-none focus:shadow-outline-gray hover:bg-gray-700"
+          className="self-end px-3 py-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-lg focus:outline-none focus:shadow-outline-gray hover:bg-gray-700"
         >
           Submit
         </Button>
