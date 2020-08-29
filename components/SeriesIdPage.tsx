@@ -43,7 +43,7 @@ function SeriesInfo({
       {description && (
         <div
           dangerouslySetInnerHTML={{ __html: description }}
-          className="space-y-4 tracking-wider text-gray-800"
+          className="prose max-w-none"
         />
       )}
     </div>
@@ -54,7 +54,7 @@ function SeriesIdPage(props: SeriesIdProps) {
   return (
     <ContentPageLayout>
       <SeriesInfo {...props} />
-      <BookSet books={props.books} size="3D" />
+      <BookSet books={props.books} />
       <RecommendationsBar recommendations={props.recommendations} />
     </ContentPageLayout>
   );

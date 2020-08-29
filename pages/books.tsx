@@ -1,5 +1,10 @@
 import React from "react";
-import { fetchJSON, prependBaseURL } from "lib/cmsUtils";
+import {
+  fetchJSON,
+  prependBaseURL,
+  extractImage,
+  ImageGroup,
+} from "lib/cmsUtils";
 import { Book } from "lib/models/Book";
 import { Series } from "lib/models/Series";
 import BooksPage from "components/BooksPage";
@@ -8,9 +13,7 @@ import Head from "next/head";
 
 export interface BooksBookProp {
   id: number;
-  coverImageURL: string;
-  height: number;
-  width: number;
+  coverImageGroup: ImageGroup;
   title: string;
 }
 
@@ -74,34 +77,9 @@ export async function getStaticProps(): Promise<{
   revalidate: number;
 }> {
   function processBook(book: Book): BooksBookProp {
-    const [_, cover] = Object.entries(book.cover.formats).reduce(
-      (acc, elem) => {
-        switch (acc[0]) {
-          case undefined:
-            if (elem[1].size < 150 && elem[1].size > acc[1].size) return elem;
-          case "thumbnail":
-            if (["small", "medium", "large"].includes(elem[0])) return elem;
-            break;
-          case "small":
-            if (["medium", "large"].includes(elem[0])) return elem;
-            break;
-          case "medium":
-            if (["large"].includes(elem[0])) return elem;
-            break;
-          case "large":
-            if ([].includes(elem[0])) return elem;
-            break;
-        }
-        return acc;
-      },
-      [undefined, book.cover]
-    );
-
     return {
       id: book.id,
-      coverImageURL: prependBaseURL({ endpoint: cover.url }),
-      height: cover.height,
-      width: cover.width,
+      coverImageGroup: extractImage({ cmsImage: book.cover }),
       title: book.title,
     };
   }

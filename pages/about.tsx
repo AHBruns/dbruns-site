@@ -1,13 +1,18 @@
 import React from "react";
 import { markdownToStringifiedHTML } from "lib/markdown";
-import { prependBaseURL, fetchJSON } from "lib/cmsUtils";
+import {
+  prependBaseURL,
+  fetchJSON,
+  extractImage,
+  ImageGroup,
+} from "lib/cmsUtils";
 import { STRINGIFIED_HTML } from "lib/models/aliases";
 import AboutPage from "components/AboutPage";
 import Head from "next/head";
 
 export interface AboutProps {
   headerText: string;
-  headshot: string;
+  headshot: ImageGroup;
   description: STRINGIFIED_HTML;
   videoHeaderText: string;
   youtubeEmbedLink: string;
@@ -35,10 +40,12 @@ export async function getStaticProps(): Promise<{
 }> {
   const data = await fetchJSON(prependBaseURL({ endpoint: "/about-page" }));
 
+  console.log(extractImage({ cmsImage: data.headshot }));
+
   return {
     props: {
       headerText: data.header_text,
-      headshot: prependBaseURL({ endpoint: data.headshot?.url }),
+      headshot: extractImage({ cmsImage: data.headshot }),
       description: markdownToStringifiedHTML({ md: data.description }),
       videoHeaderText: data.video_header_text,
       youtubeEmbedLink: data.youtube_embed_link,

@@ -1,5 +1,8 @@
 import React from "react";
 import { AboutProps } from "pages/about";
+import { ImageGroup } from "lib/cmsUtils";
+import { Transition } from "@tailwindui/react";
+import ImgGroup from "./ImgGroup";
 
 function Header({ children }: { children: string }) {
   return (
@@ -13,19 +16,18 @@ function Blurb({
   headshot,
   description,
 }: {
-  headshot: string;
+  headshot: ImageGroup;
   description: string;
 }) {
   return (
     <div>
-      <img
-        alt="headshot image"
-        src={headshot}
-        className="float-left w-full mb-4 rounded-sm shadow-lg sm:mb-0 sm:mr-2 sm:w-auto sm:h-80"
+      <ImgGroup
+        imageGroup={headshot}
+        className="float-left w-full mb-4 rounded-sm shadow-lg sm:mb-2 sm:mr-4 sm:w-auto sm:h-96"
       />
       <div
         dangerouslySetInnerHTML={{ __html: description }}
-        className="space-y-4 text-base text-justify text-gray-800 "
+        className="prose max-w-none"
       />
     </div>
   );
@@ -67,11 +69,18 @@ function AboutPage({
 }: AboutProps) {
   return (
     <div className="relative flex flex-col items-center justify-start flex-1">
-      <div className="flex flex-col w-full max-w-6xl p-4 space-y-4">
+      <Transition
+        appear
+        show
+        enter="transition-all ease-out duration-500 transform delay-200"
+        enterFrom="opacity-0 translate-y-2"
+        enterTo="opacity-100 translate-y-0"
+        className="flex flex-col w-full max-w-6xl p-4 space-y-4"
+      >
         <Header>{headerText}</Header>
         <Blurb {...{ headshot, description }} />
         <VideoSection {...{ videoHeaderText, youtubeEmbedLink }} />
-      </div>
+      </Transition>
     </div>
   );
 }

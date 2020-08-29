@@ -13,7 +13,7 @@ interface CoreImage {
 interface ImageFormat extends Dimensional, CoreImage {}
 
 export interface Image extends Entity, Dimensional, CoreImage {
-  alternativetext?: string;
+  alternativeText?: string;
   caption?: string;
   // hiding unknown things
   // previewUrl?: string;

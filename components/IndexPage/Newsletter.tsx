@@ -1,10 +1,17 @@
 import React from "react";
 import ThreeDimensionalBook from "components/3DBook";
 import Button from "components/Button";
-import { IndexCardProps } from "pages";
 import { Transition } from "@tailwindui/react";
+import { STRINGIFIED_HTML } from "lib/models/aliases";
+import { ImageGroup } from "lib/cmsUtils";
 
-function Card({ title, body, mobileBookImage }: IndexCardProps) {
+export interface NewsletterProps {
+  title: string;
+  body: STRINGIFIED_HTML;
+  mobileBookImage: ImageGroup;
+}
+
+function Newsletter({ title, body, mobileBookImage }: NewsletterProps) {
   return (
     <Transition
       appear
@@ -20,9 +27,10 @@ function Card({ title, body, mobileBookImage }: IndexCardProps) {
       <div className="block sm:hidden">
         <ThreeDimensionalBook
           lazyLoad
-          src={mobileBookImage.url}
-          height={mobileBookImage.height}
-          width={mobileBookImage.width}
+          alt={mobileBookImage.alt}
+          src={mobileBookImage.mobile.url}
+          height={mobileBookImage.mobile.height}
+          width={mobileBookImage.mobile.width}
         />
       </div>
       <div
@@ -52,4 +60,4 @@ function Card({ title, body, mobileBookImage }: IndexCardProps) {
   );
 }
 
-export default Card;
+export default Newsletter;

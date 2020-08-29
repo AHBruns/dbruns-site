@@ -4,6 +4,7 @@ import {
   fetchJSON,
   prependBaseURL,
   extractAndSortRecommendations,
+  extractImage,
 } from "lib/cmsUtils";
 import { markdownToStringifiedHTML } from "lib/markdown";
 import { Series } from "lib/models/Series";
@@ -84,17 +85,15 @@ export async function getStaticProps({
       description:
         markdownToStringifiedHTML({ md: series.description }) ?? null,
       genres: (series.genres as Genre[]).map(({ name }) => name),
-      books: (series.books as Book[]).map(
-        ({ id, title, cover: { url, height, width } }) => ({
-          id,
-          coverImageURL: prependBaseURL({ endpoint: url }),
-          height,
-          width,
-          title,
-        })
-      ),
+      books: (series.books as Book[]).map(({ id, title, cover }) => ({
+        id,
+        coverImageGroup: extractImage({ cmsImage: cover }),
+        title,
+      })),
       authors: (series.authors as Author[]).map(({ name }) => name),
-      recommendations: extractAndSortRecommendations(series),
+      recommendations: extractAndSortRecommendations({
+        recommendations: series.recommendations,
+      }),
     },
     revalidate: 15,
   };

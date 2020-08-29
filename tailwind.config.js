@@ -7,10 +7,10 @@ module.exports = {
     width: ["responsive", "hover", "focus"],
     minWidth: ["responsive", "hover", "focus"],
     backgroundColor: ["responsive", "hover", "focus", "group-focus"],
-    opacity: ["responsive", "hover", "focus", "group-focus"],
+    opacity: ["responsive", "hover", "focus", "group-focus", "group-hover"],
     backgroundOpacity: ["responsive", "hover", "focus", "group-focus"],
   },
-  plugins: [require("@tailwindcss/ui")],
+  plugins: [require("@tailwindcss/ui"), require("@tailwindcss/typography")],
   future: {
     removeDeprecatedGapUtilities: true,
   },

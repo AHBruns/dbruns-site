@@ -2,80 +2,94 @@ import React from "react";
 import Button from "components/Button";
 import { Transition } from "@tailwindui/react";
 import Head from "next/head";
+import {
+  fetchJSON,
+  prependBaseURL,
+  extractImage,
+  ImageGroup,
+} from "lib/cmsUtils";
 
-function Contact() {
+interface ContactProps {
+  headerText: string;
+  backgroundImageGroup: ImageGroup;
+}
+
+function BackgroundImage({ imageGroup }: { imageGroup: ImageGroup }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-gray-800">
+      <img
+        loading="lazy"
+        alt={imageGroup.alt ?? "desktop background image"}
+        src={imageGroup.desktop.url}
+        className="hidden object-cover min-w-full min-h-full sm:block"
+        height={imageGroup.desktop.height}
+        width={imageGroup.desktop.width}
+      />
+      <img
+        loading="lazy"
+        alt={imageGroup.alt ?? "mobile background image"}
+        src={imageGroup.mobile.url}
+        className="block object-cover min-w-full min-h-full sm:hidden"
+        height={imageGroup.mobile.height}
+        width={imageGroup.mobile.width}
+      />
+    </div>
+  );
+}
+
+function Contact({ headerText, backgroundImageGroup }: ContactProps) {
   return (
     <>
       <Head>
         <title>Contact · David Bruns</title>
-        <meta name="description" content="Contact David Bruns." />
+        <meta name="description" content="David Bruns' contact page." />
       </Head>
-      <div className="relative flex-1">
-        <div className="absolute inset-0 overflow-y-auto bg-gray-800">
-          <div className="absolute inset-0 flex flex-col items-center p-4 md:justify-center">
-            <Transition
-              appear
-              show
-              enter="transition-all ease-in-out duration-300 delay-200"
-              enterFrom="opacity-0 scale-50"
-              enterTo="opacity-100 scale-100"
-              className="z-10 flex flex-col w-full max-w-md p-4 space-y-4 transform bg-white rounded-sm shadow-lg"
-            >
-              <h1 className="text-3xl font-bold leading-tight tracking-wider text-gray-800 uppercase">
-                Let's talk
-              </h1>
-              <input
-                className="px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg focus:shadow-outline-gray focus:outline-none"
-                placeholder="your email"
-              />
-              <textarea
-                placeholder="your message"
-                className="px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg focus:shadow-outline-gray h-52 max-h-96 focus:outline-none"
-              ></textarea>
-              <Button
-                alt="send message"
-                className="px-3 py-2 space-x-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-md focus:shadow-outline-gray focus:outline-none hover:bg-gray-700"
-              >
-                Submit
-              </Button>
-            </Transition>
-          </div>
-        </div>
+      <div className="relative flex flex-col items-center justify-center flex-1 p-4">
+        <BackgroundImage imageGroup={backgroundImageGroup} />
+        <Transition
+          appear
+          show
+          enter="transition-all ease-in-out duration-300 delay-200"
+          enterFrom="opacity-0 scale-50"
+          enterTo="opacity-100 scale-100"
+          className="z-10 flex flex-col w-full max-w-md p-4 space-y-4 transform bg-white rounded-sm shadow-lg"
+        >
+          <h1 className="text-3xl font-bold leading-tight tracking-wider text-gray-800 uppercase">
+            {headerText}
+          </h1>
+          <input
+            className="px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg focus:shadow-outline-gray focus:outline-none"
+            placeholder="your email"
+          />
+          <textarea
+            placeholder="your message"
+            className="px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg focus:shadow-outline-gray h-52 max-h-96 focus:outline-none"
+          ></textarea>
+          <Button
+            alt="send message"
+            className="px-3 py-2 space-x-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-md focus:shadow-outline-gray focus:outline-none hover:bg-gray-700"
+          >
+            Submit
+          </Button>
+        </Transition>
       </div>
     </>
-
-    // <div className="relative flex flex-col justify-between min-h-screen">
-    //   <main
-    //     className="flex items-center justify-center flex-1 w-full"
-    //     style={{
-    // background:
-    //   "url('https://photojournal.jpl.nasa.gov/jpeg/PIA22906.jpg')",
-    // backgroundPosition: "bottom",
-    // backgroundRepeat: "no-repeat",
-    // backgroundSize: "cover",
-    //     }}
-    //   >
-    // <div className="flex items-center justify-center w-full max-w-2xl p-4">
-    //   <div className="flex flex-col w-full max-w-md p-4 space-y-4 bg-white rounded-sm shadow-lg">
-    //     <h1 className="text-3xl font-bold leading-tight tracking-wider text-gray-800 uppercase">
-    //       Let's talk
-    //     </h1>
-    //     <input
-    //       className="px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg focus:shadow-outline-gray focus:outline-none"
-    //       placeholder="your email"
-    //     />
-    //     <textarea
-    //       placeholder="your message"
-    //       className="px-3 py-2 text-white bg-gray-800 rounded-sm shadow-lg focus:shadow-outline-gray h-52 max-h-96 focus:outline-none"
-    //     ></textarea>
-    //     <Button className="px-3 py-2 space-x-2 font-semibold tracking-wider text-white bg-gray-800 rounded-sm shadow-md focus:shadow-outline-gray focus:outline-none hover:bg-gray-700">
-    //       Submit
-    //     </Button>
-    //   </div>
-    // </div>
-    //   </main>
-    // </div>
   );
+}
+
+export async function getStaticProps(): Promise<{
+  props: ContactProps;
+  revalidate: number;
+}> {
+  const data = await fetchJSON(prependBaseURL({ endpoint: "/contact-page" }));
+
+  return {
+    props: {
+      headerText: data.form_header_text,
+      backgroundImageGroup: extractImage({ cmsImage: data.background_image }),
+    },
+    revalidate: 15,
+  };
 }
 
 export default Contact;

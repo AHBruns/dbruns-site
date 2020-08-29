@@ -67,7 +67,7 @@ function BooksIdPage({
           />
         </div>
         <div className="col-span-3">
-          <div className="float-left min-w-full pb-8 md:pr-12 md:min-w-0 md:pb-0">
+          <div className="float-left min-w-full pb-8 md:pb-8 md:pl-4 md:pr-12 md:min-w-0 ">
             <ThreeDimensionalBook
               src={coverImageURL}
               height={height}
@@ -76,7 +76,7 @@ function BooksIdPage({
           </div>
           <div
             dangerouslySetInnerHTML={{ __html: description }}
-            className="space-y-4 text-justify text-gray-800"
+            className="prose max-w-none"
           />
         </div>
         <div className="col-span-3">

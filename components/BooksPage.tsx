@@ -54,7 +54,15 @@ function Series({
               className="max-w-5xl px-8 py-4 mx-auto text-lg tracking-wider text-center text-white"
             />
           )}
-          {<BookSet books={books} size="medium" />}
+          <Transition
+            appear
+            show
+            enter="transition-all ease-out duration-500 delay-500 transform"
+            enterFrom="opacity-0 translate-y-4 scale-95"
+            enterTo="opacity-100 translate-y-0 scale-100"
+          >
+            <BookSet books={books} />
+          </Transition>
         </div>
       </div>
     </div>
