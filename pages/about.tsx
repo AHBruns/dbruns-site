@@ -40,8 +40,6 @@ export async function getStaticProps(): Promise<{
 }> {
   const data = await fetchJSON(prependBaseURL({ endpoint: "/about-page" }));
 
-  console.log(extractImage({ cmsImage: data.headshot }));
-
   return {
     props: {
       headerText: data.header_text,
