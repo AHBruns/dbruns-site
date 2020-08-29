@@ -13,7 +13,7 @@ function BookSet({
       {books
         .map(({ id, coverImageGroup }) => {
           return [
-            <div className="p-1 sm:p-2">
+            <div key={id} className="w-full h-auto p-1 sm:w-auto sm:p-2">
               <div className="w-full h-auto bg-black rounded-sm sm:w-auto lg:h-96 md:h-80 sm:h-64">
                 <ImgGroup
                   imageGroup={coverImageGroup}
@@ -24,11 +24,16 @@ function BookSet({
             id,
           ];
         })
-        .map(([img, id]) => {
+        .map(([img, id]: [JSX.Element, number]) => {
           if (id) {
             return (
-              <Link href="/books/[id]" as={`/books/${id}`}>
-                <a className="focus:outline-none group">{img}</a>
+              <Link key={id} href="/books/[id]" as={`/books/${id}`}>
+                <a
+                  key={id}
+                  className="w-full h-auto focus:outline-none group sm:w-auto"
+                >
+                  {img}
+                </a>
               </Link>
             );
           } else return img;

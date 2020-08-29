@@ -44,10 +44,10 @@ function Series({
   description?: STRINGIFIED_HTML;
 }) {
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-2 sm:space-y-4">
       <SeriesHeader id={id} name={name} />
-      <div className="px-4">
-        <div className="p-4 bg-gray-600 rounded-sm shadow-lg ">
+      <div className="px-2 sm:px-4">
+        <div className="p-0 bg-gray-600 rounded-sm shadow-lg sm:p-4 ">
           {description && (
             <div
               dangerouslySetInnerHTML={{ __html: description }}
